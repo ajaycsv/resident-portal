@@ -1,0 +1,246 @@
+<app-spinner [loader]='loader'></app-spinner>
+<app-top-navigation></app-top-navigation>
+<section class="back-header mt-96">
+  <div class="d-flex" [routerLink]="['/' + appointment.ROUTERLINKS.DASHBOARD]">
+    <img src="../../../assets/images/back-icon.png" alt="Back" class="mr-3 cursor">
+    <button class="clr-4a4 no-shadow bg-transparent border-0 no-outline">Back to
+      Dashboard</button>
+  </div>
+</section>
+<section class="acknowledgement-page bg-ece px-50 py-4">
+  <section class="container-fluid px-0">
+    <div class="common-shadow">
+      <div class="row mx-0 my-4">
+        <div class="col-md-9 col-lg-9 col-xs-12 col-sm-12 title clr-failed text-center">Take A Printout Of This Page Before Visiting The Enrolment Center</div>
+        <div class="col-md-3 col-lg-3 col-xs-12 col-sm-12 text-right p-xs-0">
+          <a class="btn btn-primary download-btn bg-btn no-shadow" [href]="pdfFileUrl" attr.download="{{pdfFilename}}" *ngIf="!disabledDownloadPrint">Download</a>
+          <button class="btn btn-primary print-btn bg-btn no-shadow ml-3" (click)="print()" *ngIf="!disabledDownloadPrint">Print</button>
+        </div>
+      </div>
+      <div class="horizontal-divider"></div>
+      <!-- Thank You section -->
+      <section  id='print-section'>
+        <div class="row mx-0 px-3 py-4">
+          <h5 class="title text-center col-md-12 col-lg-12 col-xs-12 col-sm-12 p-xs-0">Thank You! Your Appointment is confirmed</h5>
+          <h6 class="text-center col-md-12 col-lg-12 col-xs-12 col-sm-12 p-xs-0">We have sent the confirmation details on to your registered mobile number {{loggedInNumber}}</h6>
+        </div>
+        <div class="row mx-0 px-3 py-4">
+          <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12 p-xs-0">
+            <h6><b>Enrolment Center Name:</b>{{selectedCenter.ecName}}</h6>
+            <h6><b>Address:</b> {{selectedCenter.fullAdrs}} ,{{selectedCenter.subDistrict}},{{selectedCenter.state}},{{selectedCenter.pinCode}}</h6>
+          </div>
+          <div class="col-md-2 col-lg-2 col-xs-12 col-sm-12 p-xs-0">
+            <h6><b>Date:</b> {{selectedSlot.date | date: 'mediumDate'}}</h6>
+            <h6><b>Time:</b>{{selectedSlot.startTime}}</h6>
+          </div> 
+          <div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 p-xs-0">
+            <h6><b>Appointment ID (AID):</b> {{userData.appointmentId}}</h6>
+          </div>
+        </div>
+        <div class="horizontal-divider"></div>
+        <!-- Your Details section -->
+        <div class="row mx-0 px-3 py-4">
+          <h5 class="title text-center col-md-12 col-lg-12 col-xs-12 col-sm-12 mb-5 p-xs-0">Your Details</h5>
+          <h6 class="col-md-3 col-lg-3 col-xs-6 col-sm-6 p-xs-0"><b>Full Name: </b>{{userData.fullName}}</h6>
+          <h6 class="col-md-3 col-lg-3 col-xs-6 col-sm-6 p-xs-0" *ngIf="userData.headOfFamilyEntity"><b>Guardian/Relations Name: </b>{{userData.headOfFamilyEntity.relativeName}}</h6>
+          <h6 class="col-md-3 col-lg-3 col-xs-6 col-sm-6 p-xs-0" *ngIf="userData.headOfFamilyEntity"><b>Guardian/Relative Aadhaar/EID: </b>{{(userData.headOfFamilyEntity.aadharIdRel) ? userData.headOfFamilyEntity.aadharIdRel : (userData.headOfFamilyEntity.enrolmentIdRel) ? userData.headOfFamilyEntity.enrolmentIdRel : ''}}</h6>
+          <h6 class="col-md-3 col-lg-3 col-xs-6 col-sm-6 p-xs-0"><b>Date Of Birth / Age: </b>{{(userData.dob) ? userData.dob : (userData.age && userData.age > 0) ? userData.age : ''}}</h6>
+          <!-- <h6 class="col-md-3 col-lg-3 col-xs-6 col-sm-6 p-xs-0"><b>Age: </b>28 Years</h6> -->
+          <h6 class="col-md-3 col-lg-3 col-xs-6 col-sm-6 p-xs-0"><b>Gender: </b>{{userData.gender}}</h6>
+        </div>
+        <div class="horizontal-divider"></div>
+        <!-- Address Details section -->
+        <div class="row mx-0 px-3 py-4">
+          <h6 class="col-md-2 col-lg-2 col-xs-6 col-sm-6 p-xs-0"><b>Pincode: </b>{{userData.pinCode}}</h6>
+          <h6 class="col-md-8 col-lg-8 col-xs-12 col-sm-12 p-xs-0"><b>Address: </b>{{userData.adrs1}}</h6>
+          <h6 class="col-md-2 col-lg-2 col-xs-6 col-sm-6 p-xs-0" *ngIf="userData.landMark"><b>Landmark: </b>{{userData.landMark}}</h6>
+          <h6 class="col-md-3 col-lg-2 col-xs-6 col-sm-6 p-xs-0"><b>Village: </b>{{userData.vtc}}</h6>
+          <h6 class="col-md-3 col-lg-2 col-xs-6 col-sm-6 p-xs-0"><b>District: </b>{{userData.district}}</h6>
+          <h6 class="col-md-3 col-lg-2 col-xs-6 col-sm-6 p-xs-0"><b>State: </b>{{userData.state}}</h6>
+          <h6 class="col-md-3 col-lg-3 col-xs-6 col-sm-6 p-xs-0" *ngIf="userData.postOfc"><b>Post Office: </b>{{userData.postOfc}}</h6>
+          <h6 class="col-md-3 col-lg-3 col-xs-6 col-sm-6 p-xs-0" *ngIf="userData.policeOfc"><b>Police Station: </b>{{userData.policeOfc}}</h6>
+        </div>
+        <div class="horizontal-divider"></div>
+        <!-- QR Code Details section -->
+        <div class="row mx-0 px-3 py-4">
+          <h6 class="col-md-3 col-lg-3 col-xs-6 col-sm-6 p-xs-0" *ngIf="userData.mobileNo"><b>Mobile Number: </b>{{userData.mobileNo}}</h6>
+          <h6 class="col-md-3 col-lg-3 col-xs-6 col-sm-6 p-xs-0" *ngIf="userData.email"><b>Email: </b>{{userData.email}}</h6>          
+          <div class="qr-code-block col-md-3 col-lg-3 col-xs-6 col-sm-6 d-flex p-xs-0">
+            <h6 class=""><b>QR Image: </b></h6><img [src]="qrImageUrl" alt="QR Image" class="qr-code-image ml-lg-2 ml-md-2">
+          </div>
+        </div>
+        <div class="horizontal-divider"></div>
+        <!-- Hof under section -->
+        <div class="row mx-0 px-3 py-4">
+          <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 mb-3 p-xs-0">
+            <h6>I hereby confirm the identity and address of _________________ as being true, correct and accurate.</h6>
+          </div>
+          <div class="disclosure-signature col-md-6 col-lg-6 col-xs-12 col-sm-12 pb-3 p-xs-0">
+            <h6><b>HOF Name:</b></h6>
+          </div>
+          <div class="disclosure-signature ds-right col-md-6 col-lg-6 col-xs-12 col-sm-12 text-right pb-3 p-xs-0">
+            <h6><b>Signature of HOF</b></h6>
+          </div>
+        </div>
+        <div class="horizontal-divider"></div>
+        <!-- Disclosure under section -->
+        <div class="row mx-0 px-3 py-4">
+          <div class="form-check col-md-12 col-lg-12 col-sm-12 col-xs-12">
+            <input class="form-check-input disclosure-checkbox" type="checkbox" name="underTaken" id="underTaken" checked>
+            <h6><b>Disclosure under section 3(2) of THE AADHAAR (TARGETED DELIVERY OF FINANCIAL AND OTHER SUBSIDIES, BENEFITS AND SERVICES) ACT, 2016</b></h6>
+            <h6>I confirm that I have been residing in India for at least 182 days in the preceding 12 months &amp; information (including biometrics) provided by me to the UIDAI is my own and is true, correct and accurate. I am aware that my information including biometrics will be used for generation of Aadhaar and authentication. I understand that my identity information (except core biometric) may be provided to an agency only with my consent during authentication or as per the provisions of the Aadhaar Act. I have a right to access my identity information (except core biometrics) following the procedure laid down by UIDAI.</h6>
+          </div>
+        </div>
+        <div class="row mx-0 px-3 pb-4">
+          <div class="disclosure-signature col-md-6 col-lg-6 col-xs-12 col-sm-12 pb-3 p-xs-0">
+            <h6><b>Verifier’s Stamp and Signature:</b></h6>
+            <h6>(Verifier must put his/her Name, if stamp is not available)</h6>
+          </div>
+          <div class="disclosure-signature ds-right col-md-6 col-lg-6 col-xs-12 col-sm-12 text-right pb-3 p-xs-0">
+            <h6><b>Applicant’s signature/Thumbprint</b></h6>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="common-shadow mt-3">
+      <div class="row mx-0 my-4 p-xs-0">
+        <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12 title clr-failed text-center">Carry original valid document as listed below</div>
+        <p class="col-md-12 col-lg-12 col-xs-12 col-sm-12 text-center sub-title mt-3">No need to carry photocopies. The original document is enough. It is scanned and given back to you.</p>
+      </div>
+      <div class="horizontal-divider"></div>
+      <div class="row mx-0">
+        <div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 vertical-divider p-xs-0">
+          <div class="doc-list-inner-block">
+            <h3 class="sub-title">Proof Of Identity</h3>
+            <ul class="clr-666 pl-3">
+              <li>Passport</li>
+              <li>PAN Card</li>
+              <li>Ration/ PDS Photo Card</li>
+              <li>Voter ID</li>
+              <li>Driving License</li>
+              <li>Government Photo ID Cards/ service photo identity card issued by PSU</li>
+              <li>NREGS Job Card</li>
+              <li>Photo ID issued by Recognized Educational Institution</li>
+              <li>Arms License</li>
+              <li>Photo Bank ATM Card</li>
+              <li>Photo Credit Card</li>
+              <li>Pensioner Photo Card</li>
+              <li>Freedom Fighter Photo Card</li>
+              <li>Kissan Photo Passbook</li>
+              <li>CGHS / ECHS Photo Card</li>
+              <li>Address Card having Name and Photo issued by Department of Posts</li>
+              <li>Certificate of Identify having photo issued by Gazetted Officer or Tehsildar on letterhead</li>
+              <li>Disability ID Card/handicapped medical certificate issued by the respective State/UT Governments/Administrations</li>
+              <li>Bhamashah Card</li>
+              <li>Certificate from Superintendent/ Warden/Matron/ Head of Institution of recognized Shelter Homes for Orphanages, Homes etc on their official letter head.</li>
+              <li>Certificate of Identity having photo issued by MP or MLA or MLC or Municipal Councillor on letterhead</li>
+              <li>Certificate of identity having photo issued by village panchayat head or Mukhiya for rural areas.</li>
+              <li>Gazette Notification for name change</li>
+              <li>Marriage Certificate with Photograph</li>
+              <li>RSBY Card</li>
+              <li>SSLC Book having candidates Photograph</li>
+              <li>ST/SC/OBC certificate with Photo</li>
+            </ul> 
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 p-xs-0">
+          <div class="doc-list-inner-block">
+            <h3 class="sub-title">Proof Of Address</h3>
+            <ul class="clr-666 pl-3">
+              <li>Passport</li>
+              <li>Bank Statement/ Passbook</li>
+              <li>Post Office Account Statement/Passbook</li>
+              <li>Ration Card</li>
+              <li>Voter ID</li>
+              <li>Driving License</li>
+              <li>Government Photo ID cards/ service photo identity card issued by PSU</li>
+              <li>Electricity Bill (not older than 3 months)</li>
+              <li>Water bill (not older than 3 months)</li>
+              <li>Telephone Landline Bill (not older than 3 months)</li>
+              <li>Property Tax Receipt (not older than one year)</li>
+              <li>Credit Card Statement (not older than 3 months)</li>
+              <li>Insurance Policy</li>
+              <li>Signed Letter having Photo from Bank on letterhead</li>
+              <li>Signed Letter having Photo issued by registered Company on letterhead</li>
+              <li>Signed Letter having Photo issued by Recognized Educational Institution on letterhead or Photo ID having address issued by Recognized Educational Institution</li>
+              <li>NREGS Job Card</li>
+              <li>Arms License</li>
+              <li>Pensioner Card</li>
+              <li>Freedom Fighter Card</li>
+              <li>Kissan Passbook</li>
+              <li>CGHS / ECHS Card</li>
+              <li>Certificate of Address having photo issued by MP or MLA or Gazetted Officer or Tehsildar on letterhead</li>
+              <li>Certificate of Address issued by Village Panchayat head or its equivalent authority (for rural areas)</li>
+              <li>Income Tax Assessment Order</li>
+              <li>Vehicle Registration Certificate</li>
+              <li>Registered Sale / Lease / Rent Agreement</li>
+              <li>Address Card having Photo issued by Department of Posts</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 p-xs-0">
+          <div class="doc-list-inner-block">
+            <ul class="clr-666 pl-3 mt-4">                
+              <li>Caste and Domicile Certificate having Photo issued by State Govt.</li>
+              <li>Disability ID Card/handicapped medical certificate issued by the respective State/UT Governments/Administrations</li>
+              <li>Gas Connection Bill (not older than 3 months)</li>
+              <li>Passport of Spouse</li>
+              <li>Passport of Parents (in case of Minor)</li>
+              <li>Allotment letter of accommodation issued by Central/State Govt. of not more than 3 years old</li>
+              <li>Marriage Certificate issued by the Government, containing address.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="horizontal-divider"></div>
+      <div class="row mx-0">
+        <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12 vertical-divider p-xs-0">
+          <div class="doc-list-inner-block">
+            <h3 class="sub-title">Date Of Birth</h3>
+            <ul class="clr-666 pl-3">
+              <li>Birth Certificate</li>
+              <li>SSLC Book/Certificate</li>
+              <li>Passport</li>
+              <li>Certificate of Date of Birth issued by Group A Gazetted Officer on Letterhead</li>
+              <li>PAN Card</li>
+              <li>Marksheet issued by any Govt. Board or University</li>
+              <li>Govt. Photo ID Card/Photo Identity card issued by PSU containing DoB.</li>
+              <li>Central/State Pension payment order.</li>
+              <li>Central Govt. Health Service Scheme photo card or Ex-Servicemen</li>
+              <li>A certificate or ID card having photo and Date of Birth (DoB) duly signed and issued by a Government authority</li>
+              <li>Photo ID card having Date of Birth, issued by Recognized Educational Institution</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12 p-xs-0">
+          <div class="doc-list-inner-block">
+            <h3 class="sub-title">Proof Of Relation</h3>
+            <ul class="clr-666 pl-3">
+              <li>PDS Card</li>
+              <li>MNREGA Job Card</li>
+              <li>CGHS/State Government/ECHS/ESIC Medical card</li>
+              <li>Pension Card</li>
+              <li>Army Canteen Card</li>
+              <li>Passport</li>
+              <li>Birth Certificate issued by Registrar of Birth, Municipal Corporation and other notified local government bodies like Taluk, Tehsil etc.</li>
+              <li>Any other Central/State government issued family entitlement document</li>
+              <li>Marriage Certificate Issued by the Government.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="horizontal-divider"></div>
+      <div class="row mx-0 px-3 py-4">
+        <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12 m-auto text-center ack-footer p-xs-0">
+          <div class="row">
+            <div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 vertical-divider">TOLLFREE: 1947</div>
+            <div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 vertical-divider">EMAIL: help@uidai.gov.in</div>
+            <div class="col-md-4 col-lg-4 col-xs-12 col-sm-12">WEBSITE: uidai.gov.in</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+</section>

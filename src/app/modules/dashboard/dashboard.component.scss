@@ -1,0 +1,543 @@
+$brand-primary: #dbdbdb;
+$white: #fff;
+$grey-light: #ededed;
+$status-done : url('../../../assets/images/status-done.png');
+$status-inprogress: url('../../../assets/images/status-in-progress.png');
+$status-failed: url('../../../assets/images/status-failed.png');
+$status-ultimate: url('../../../assets/images/status-ultimate.png');
+$mobile_screen : '1023px';
+%remain-steps{
+  &:before {
+    content: counter(stepNum);
+    font-family: inherit;
+    font-weight: 700;
+  }
+  &:after{
+    background-color: $grey-light;
+  }
+}
+.multi-steps{
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  @media screen and (max-width: $mobile_screen) {
+    padding: 0 0 0 20px;
+  }
+  > li{
+    counter-increment: stepNum;
+    text-align: center;
+    display: table-cell;
+    position: relative;
+    color: $brand-primary;
+    @media screen and (max-width: $mobile_screen) {
+      display: block;
+      min-height: 100px;
+    }
+
+    &:before{
+    content: $status-done;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      display: block;
+      margin: 0 auto 18px;
+      background-color: $white;
+      width: 42px;
+      height: 42px;
+      @media screen and (max-width: $mobile_screen) {
+        margin: unset;
+      }
+    }
+    &:after{
+      content: '';
+      height: 2px;
+      width: 100%;
+      background-color: $brand-primary;
+      position: absolute;
+      top: 20px;
+      left: 54%;
+      z-index: 0;
+      @media screen and (max-width: $mobile_screen) {
+        height: 100%;
+        width: 2px;
+        top: 42px;
+        left: 20px;
+      }
+    }
+    &:last-child{
+      &:after{
+        display: none;
+      }
+    }
+
+    &.is-active{
+      @extend %remain-steps;
+      &:before{
+        background-color: $white;
+        border-color: $brand-primary;
+      }
+
+      ~ li{
+        color: #808080;
+        @extend %remain-steps;
+        &:before{
+          background-color: $grey-light;
+          border-color: $grey-light;
+        }
+      }
+    }
+  }
+}
+
+.police-verification-icon-failed::before {
+    content: $status-failed !important;
+}
+.police-verification-icon-done::before {
+  content: $status-done !important;
+}
+.book-appoinment-icon::before {
+    content: $status-done  !important;
+}
+
+.doc-inprogress::before {
+    content: $status-inprogress  !important;
+}
+
+.no-data-icon::before {
+    content: $status-ultimate  !important;
+}
+
+p {
+    margin-bottom: 0px;
+    line-height: 18px;
+    font-size: 12px;
+}
+
+.no-outline {
+    outline: none !important;
+}
+
+.no-shadow {
+    box-shadow: none !important;
+}
+
+.clr-666 {
+    color: #666;
+}
+
+.clr-999 {
+    color: #999;
+}
+
+.clr-db2031 {
+    color: #db2031;
+}
+
+.clr-newel {
+	color: #68b90f;
+}
+
+.clr-update {
+	color: #4285f4;
+}
+
+.clr-failed {
+	color: #d0021b;
+}
+
+.clr-inprogress {
+	color: #f5a623;
+}
+
+.clr-verified {
+	color: #68b90f;
+}
+
+.text-black {
+    color: #000;
+}
+
+.clr-db2031 {
+    color: #db2031;
+}
+
+.clr-4a4 {
+    color: #4a4a4a;
+}
+
+.clr-darkish-blue {
+    color: #013299;
+}
+
+.no-data {
+    color: #000;
+}
+.to-be-generated {
+  color: #ffa300
+}
+.bg-ece {
+    background-color: #ececec;
+}
+
+.bg-fafafa {
+	background-color: #fafafa;
+}
+
+.bg-note {
+	background-color: #f1f3f4;
+}
+
+.px-50 {
+    padding: 0 50px;
+}
+
+.navbar,
+.nav {
+    background-image: linear-gradient(to right, #020348, #166fa4 53%, #1ab1dc);
+}
+
+.nav-tabs .nav-link {
+    font-size: 14px;
+    color: #fff !important;
+    padding: 13px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-link:focus,
+.nav-tabs .nav-link:hover {
+    color: #ffffff;
+    background-color: transparent;
+    border-color: transparent;
+    border-bottom: 2px solid #fff;
+}
+
+.mamp {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: right;
+    color: #263238;
+    padding: 35px 10px 0 0;
+}
+
+.bg-btn {
+	opacity: 0.9;
+	border-radius: 6px;
+	background-image: linear-gradient(108deg, #092e6f, #1699c7);
+}
+
+.form-control {
+    font-size: 12px;
+    padding: 8px;
+    height: 40px;
+}
+
+.form-control:focus {
+    color: #000;
+    border-color: #ccc !important;
+    box-shadow: none !important;
+}
+
+.form-group label,
+.form-check label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.25px;
+    margin: 0 0 0 0;
+}
+
+.register-btn {
+    opacity: 0.9;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 6px;
+    background-image: linear-gradient(98deg, #092e6f, #1699c7);
+    width: 200px;
+    height: 40px;
+}
+
+.note-section {
+    background-color: #f1f3f4;
+    border-top: 2px solid #96a5c7;
+    font-size: 13px;
+    color: #666666;
+    line-height: 25px;
+}
+
+/*Common css end here*/
+
+.dashboard-block-wrap {
+	  box-shadow: 0 -1px 7px 0 rgba(0, 0, 0, 0.19);
+    border-bottom: solid 1px #f4f4f4;
+    margin-top: 96px;
+}
+
+.check-btn {
+	font-size: 16px;
+	height: 40px;
+}
+
+.dashboard-block p {
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.dashboard-block img {
+    height: 30px;
+}
+
+.app-details-row {
+	border-radius: 5px;
+	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.06);
+	border: solid 1px #ebebeb;
+	background-color: #ffffff;
+	margin: 0 0 20px 0;
+}
+
+.app-title-block {
+	border-right: solid 1px #ebebeb;
+	background-color: #f9f9f9;
+}
+.app-title {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+.app-title-name {
+	font-size: 14px;
+  	font-weight: bold;
+  	line-height: 18px;
+}
+
+.status-row {
+	border-bottom: 1px solid #ebebeb;
+}
+
+.app-btn-block {
+	/*width: 240px;*/
+	display: inline-flex;
+}
+
+.app-status-btn {
+    font-size: 0.75rem;
+	opacity: 0.9;
+	border-radius: 0px;
+	border: solid 1px #979797;
+}
+
+.app-status-btn.tab-active {
+	border-radius: 6px 0 0px 6px;
+}
+
+.app-status-btn.tab-draft {
+	border-radius: 0 6px 6px 0;
+  border-left: 0px;
+}
+
+.note-text {
+    font-size: 13px;
+}
+
+.re-apply-btn {
+  font-size: 13px;
+  font-weight: bold;
+  color: #2ea2cd;
+  opacity: 0.9;
+  border-radius: 6px;
+  border: solid 2px #2ea2cd;
+  padding: 8px 20px;
+}
+
+
+/*Status css*/
+
+.status-column {
+	display: inline-block;
+	text-align: center;
+	padding: 0 30px 0 30px;
+	vertical-align: middle;
+	min-height: 130px;
+}
+
+/*.circle {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	border: 1px solid red;
+}*/
+
+.status-t-block {
+	min-height: 60px;
+	margin: 20px 0 0 0;
+}
+
+.status-title {
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+  color: #000;
+  display: block;
+}
+
+.status-text {
+  font-size: 14px;
+  margin: 0 0 8px 0;;
+  display: block;
+}
+
+.status-date {
+  font-size: 14px;
+  color: #000;
+  display: block;
+}
+
+.search-result-text {
+	font-size: 20px;
+	border-top: solid 1px #ebebeb;
+}
+
+#active-draft {
+  background: transparent;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Mobile css */
+@media screen and (max-width: 768px) {
+
+	.px-50 {
+	    padding: 0 15px;
+	}
+
+	.w-xs-100 {
+		width: 100%;
+	}
+
+	.w-xs-75 {
+		width: 75%;
+	}
+
+	.w-xs-25 {
+		width: 25%;
+	}
+
+	.mamp {
+        display: none;
+    }
+     .emblem-logo {
+        max-width: 65%;
+    }
+    .aadhaar-logo {
+        max-width: 20%;
+    }
+    .dashboard-block {
+    	width: 50%;
+    }
+
+    .dashboard-block img {
+	    width: 22px;
+	    height: 22px;
+	    display: inline-block !important;
+	}
+
+    .dashboard-block p {
+	    font-size: 12px;
+        display: inline-block;
+        margin-left: 8px;
+	}
+
+	.status-column {
+		display: block;
+		min-height: auto;
+		margin-top: 20px;
+	}
+
+	.status-t-block {
+	    min-height: auto;
+	}
+
+	#collapseNote .card-body {
+		margin-left: 0px !important;
+	}
+
+	#collapseNote .card-body ul {
+		padding-left: 33px !important;
+	}
+
+	.dashboard-block-wrap .row {
+		padding: 7px 0 20px 0 !important;
+	}
+
+	.check-form .app-title {
+		text-align: center;
+		line-height: 26px;
+	}
+
+	.search-result-text {
+	    font-size: 18px;
+	    line-height: 26px;
+	}
+
+	.check-app-id {
+		width: 75%;
+	}
+
+	.check-btn-block {
+		width: 25%;
+		padding-left: 0px;
+	}
+
+	.check-btn-block .check-btn {
+		width: 100%;
+		margin-top: 16px !important;
+		font-size: 12px;
+	}
+
+	.app-btn-block {
+		margin-top: 20px;
+	}
+
+	.re-apply-btn-block {
+	    margin: 20px 0 0 0;
+	}
+
+	.status-title {
+    margin: -25px 0 0px 0;
+  }
+
+  .status-text {
+    margin-bottom: 0px;
+  }
+
+}
+
+.app-title-block-inner {
+  min-height: 210px;
+}
+
+@media only screen and (max-width: 399px) {
+  .dashboard-block p {
+  	font-size: 10px;
+  }
+}

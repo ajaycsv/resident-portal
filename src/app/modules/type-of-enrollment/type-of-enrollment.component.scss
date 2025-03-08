@@ -1,0 +1,36 @@
+.enrolment-inner-block {
+	border-radius: 6px;
+	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.06);
+	border: solid 1px #ebebeb;
+	background-color: #ffffff;
+	padding: 60px 50px;
+	min-height: 244px;
+}
+
+.enrolment-ib-text {
+	font-size: 1rem;
+	font-weight: bold;
+	line-height: 1.8;
+}
+
+.back-header {
+	padding: 20px 50px;
+	height: 56px;
+	box-shadow: 0 -1px 7px 0 rgba(0, 0, 0, 0.19);
+	border: solid 1px #f4f4f4;
+	background-color: #ffffff;
+}
+
+.enrolment-wrap {
+	padding: 0 100px;
+}
+
+@media screen and (max-width: 768px) {
+	.enrolment-wrap {
+		padding: 0 0px !important;
+	}
+	.enrolment-inner-block {
+		padding: 40px 40px !important;
+		margin-bottom: 16px;
+	}
+}

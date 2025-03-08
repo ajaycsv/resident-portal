@@ -1,0 +1,26 @@
+.w-60 {
+	width: 60px !important;
+}
+
+.form-group select {
+    border-radius: 0px;
+	// border: solid 1px #4a4a4a;
+	// background-color: #ffffff;
+	// height: 30px;
+	// font-size: 12px;
+    // padding: 5px;
+    border: 1px solid #DEDEDE;
+    box-shadow: inset 2px 2px 3px 0 rgba(0, 0, 0, 0.29);
+}
+
+.send-otp-btn {
+    color: #fff;
+    opacity: 0.9;
+    border-radius: 6px;
+    border: solid 2px #2ea2cd;
+    background-color: #2ea2cd;
+    width: 250px;
+}
+.empty-height {
+	height: 10px;
+}

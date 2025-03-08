@@ -1,0 +1,25 @@
+.preview-n-submit {
+	border-radius: 6px;
+	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.06);
+	border: solid 1px #ebebeb;
+	background-color: #ffffff;
+	padding: 16px 30px;
+}
+.preview-n-submit .single-details {
+	border-radius: 0px;
+	background-color: #f3f3f3;
+	font-size: 14px;
+	color: #000000;
+	height: 30px;
+	padding: 5px 15px;
+	background-image: linear-gradient(46deg, #F1F3F5 0%, #FFFFFF 100%);
+    border: 1px solid #DEDEDE;
+	box-shadow: inset 2px 2px 3px 0 rgba(0, 0, 0, 0.29);
+	line-height: 20px;
+}
+
+@media screen and (max-width: 768px) {
+	.preview-n-submit {
+		padding: 16px 16px;
+	}
+}

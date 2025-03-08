@@ -1,0 +1,79 @@
+
+.acknowledgement-page .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.acknowledgement-page .sub-title {
+    font-size: 0.8125rem;
+    font-weight: bold;
+}
+
+.qr-code-image {
+    height: 15rem;
+    width: 15rem;
+}
+
+.form-check-input {
+    margin-top: 3px;
+}
+
+.disclosure-signature {
+    border-bottom: 2px dashed #000;
+}
+
+
+@media screen and (max-width: 768px) {
+    .acknowledgement-page .row {
+        padding: 15px 0px;
+    }
+    .p-xs-0 {
+        padding: 0 0 !important;
+    }
+    .acknowledgement-page .title {
+        font-size: 0.8125rem;
+    }
+    .acknowledgement-page, h6 {
+        font-size: 0.75rem;
+    }
+    .qr-code-block {
+        display: block !important;
+    }
+    .doc-list-inner-block {
+        padding: 0px 15px;
+    }
+}
+
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+    .col-sm-6 {
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    .col-sm-12 {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    
+}
+
+
+@media screen and (max-width: 1024px) {
+    .print-btn {
+        display: none;
+    }
+    .download-btn {
+        display: block;
+        margin: 0px auto;
+        margin-top: 16px;
+    }
+    .ds-right {
+        text-align: left !important;
+        margin-top: 16px;
+    }
+    .ack-footer {
+        text-align: left !important;
+        line-height: 20px;
+    }
+}

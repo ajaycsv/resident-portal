@@ -1,0 +1,215 @@
+<!-- <app-top-navigation></app-top-navigation> -->
+<main class="container-fluid">
+  <section class="row">
+    <!-- AADHAAR ENROLMENT / CORRECTION Form Start -->
+    <div class="col-md-12 col-xs-12 col-sm-12 m-auto">
+      <header class="clearfix">
+        <h6 class="my-4 text-center title">AADHAAR ENROLMENT / CORRECTION FORM</h6>
+      </header>
+      <!-- Form -->
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit(f)">
+        <div class="form-group">
+          <label for="fullName">Full Name:</label>
+          <input type="text" placeholder="Full Name" formControlName="fullName" class="form-control rounded-0"
+            [ngClass]="{ 'is-invalid': submitted && f.fullName.errors }" required />
+          <div *ngIf="submitted && f.fullName.errors" class="invalid-feedback">
+            <div *ngIf="f.fullName.errors.required">{{validationMessages.MESSAGES.FULL_NAME_REQUIRED}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6 mt-4">
+            <label>Gender</label><br />
+            <select id="gender" formControlName="gender" class=""
+              [ngClass]="{ 'is-invalid': submitted && f.gender.errors }" required>
+              <!-- <option [ngValue]="null">Choose a Gender</option> -->
+              <option *ngFor="let g of genders" [ngValue]="g">{{g}}</option>
+            </select>
+            <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+              <div *ngIf="submitted && f.gender.errors.required">Gender is required</div>
+            </div>
+          </div>
+          <!-- Age or DOB -->
+          <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6">
+            <div class="row">
+              <div class="form-group col-md-3 col-sm-12 col-xs-12 col-lg-3">
+                <label for="age">Age</label>
+                <input type="text" class="form-control rounded-0" id="age" placeholder="Age" required>
+              </div>
+              <div class="col-md-3 col-sm-12 col-xs-12 col-lg-3 mt-4">
+                <p class="mb-0 text-small">Yrs <b>OR</b></p>
+              </div>
+              <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6">
+                <div class="form-group mb-0">
+                  <label for="dob">Date of Birth:</label>
+                  <input type="date" class="form-control rounded-0" id="dob" placeholder="Date of Birth" required>
+                </div>
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label" for="declared">Declared</label>
+                  <input class="form-check-input ml-2" type="checkbox" id="declared" value="Declared">
+                </div>
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label" for="verified">Verified</label>
+                  <input class="form-check-input ml-2" type="checkbox" id="verified" value="Verified">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Address -->
+        <div class="row">
+          <div class="form-group col-md-2 col-sm-12 col-xs-12 col-lg-2">
+            <label for="fullName">Address</label><br />
+            <select>
+              <option value="c/o">C/o</option>
+              <option value="d/o">D/o</option>
+              <option value="s/o">S/o</option>
+              <option value="w/o">W/o</option>
+              <option value="h/o">H/o</option>
+            </select>
+          </div>
+          <div class="form-group col-md-10 col-sm-12 col-xs-12 col-lg-10">
+            <label for="nameForAddress">Name</label>
+            <input type="text" class="form-control rounded-0" id="nameForAddress" placeholder="Name" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+            <label for="houseNo">House No/ Bldg./Apt</label>
+            <input type="text" class="form-control rounded-0" id="houseNo" placeholder="House No" required>
+          </div>
+          <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+            <label for="street">Street/Road/Lane</label>
+            <input type="text" class="form-control rounded-0" id="street" placeholder="Street" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+            <label for="landMark">Landmark</label>
+            <input type="text" class="form-control rounded-0" id="landMark" placeholder="Landmark">
+          </div>
+          <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+            <label for="area">Area/locality/sector</label>
+            <input type="text" class="form-control rounded-0" id="area" placeholder="Area" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+            <label for="village">Village/Town/City</label>
+            <input type="text" class="form-control rounded-0" id="village" placeholder="Village" required>
+          </div>
+          <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+            <label for="postOffice">Post Office</label>
+            <input type="text" class="form-control rounded-0" id="postOffice" placeholder="Post Office" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
+            <label for="district">District</label>
+            <input type="text" class="form-control rounded-0" id="district" placeholder="District" required>
+          </div>
+          <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
+            <label for="subDistrict">Sub-District</label>
+            <input type="text" class="form-control rounded-0" id="subDistrict" placeholder="Sub District">
+          </div>
+          <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
+            <label for="state">State</label>
+            <input type="text" class="form-control rounded-0" id="state" placeholder="State" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
+            <label for="email">E Mail</label>
+            <input type="email" class="form-control rounded-0" id="email" placeholder="E Mail" required>
+          </div>
+          <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
+            <label for="mobileNumber">Mobile Number</label>
+            <input type="text" class="form-control rounded-0" id="mobileNumber" placeholder="Mobile Number" required>
+          </div>
+          <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
+            <label for="pinCode">PIN CODE</label>
+            <input type="text" class="form-control rounded-0" id="pinCode" placeholder="PIN CODE" required>
+          </div>
+        </div>
+        <!-- Details of Family-->
+        <div class="row">
+          <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+            <label>Details of:</label><br />
+            <select>
+              <option value="father">Father</option>
+              <option value="mother">Mother</option>
+              <option value="guardian">Guardian</option>
+              <option value="husband">Husband</option>
+              <option value="wife">Wife</option>
+            </select>
+            <p class="text-small mb-0 mt-2">For children below 5 years Father/Mother/Guardian’s details are mandatory.
+              Adults can opt to notspecify this information, if they cannot/do not want to disclose.</p>
+          </div>
+          <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+            <label for="name">Name</label>
+            <input type="text" class="form-control rounded-0" id="name" placeholder="Name" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-12 col-sm-12 col-xs-12 col-lg-12">
+            <label for="eid">EID/ Aadhaar No.:</label>
+            <input type="text" class="form-control rounded-0" id="eid" placeholder="EID/ Aadhaar No" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Verification Type :</label><br />
+          <select>
+            <option value="document based">Document Based</option>
+            <option value="introducer based">Introducer Based</option>
+            <option value="head of family">Head of Family</option>
+          </select>
+          <p class="text-small mb-0 mt-2">Select only one of the above. Select Introducer or Head of Family only if you
+            do
+            not possess any documentary proof of identity and/or address. Introducer and Head of Family details are not
+            required in case of Document based Verification</p>
+        </div>
+        <div class="form-group">
+          <label><strong>For Document Based</strong></label> <span class="text-small">(Write Names of the documents
+            produced. Refer overleaf of thisform for list of valid documents)</span> <br />
+          <select>
+            <option value="poi">POI </option>
+            <option value="poa">POA</option>
+            <option value="dob">DOB</option>
+            <option value="por">POR</option>
+          </select>
+        </div>
+        <!-- For Introducer Based – Introducer’s -->
+        <div class="row">
+          <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+            <label><strong>For Introducer Based</strong> – Introducer’s</label><br>
+            <label class="mt-4 pt-1" for="aadharNo">Aadhaar No.</label>
+            <input type="text" class="form-control rounded-0" id="aadharNo" placeholder="Aadhaar No" required>
+          </div>
+          <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+            <label><strong>For HoF Based</strong> - Details of :</label> <br />
+            <select>
+              <option value="father">Father</option>
+              <option value="mother">Mother</option>
+              <option value="guardian">Guardian</option>
+              <option value="husband">Husband</option>
+              <option value="wife">Wife</option>
+            </select>
+            <div class="form-group">
+              <label for="hofEid">HoF’s EId/Aadhaar No.:</label>
+              <input type="text" class="form-control rounded-0" id="hofEid" placeholder="EId/Aadhaar No" required>
+            </div>
+          </div>
+        </div>
+        <div class="form-group d-flex">
+          <input type="checkbox" />
+          <p class="text-small ml-2 mb-0">I hereby confirm the identity and address of ###### as being true, correct and
+            accurate.</p>
+        </div>
+
+        <div class=" mb-3">
+          <button type="submit" class="btn btn-primary btn-lg reg-btn otp-btn rounded-0 d-block m-auto">Submit</button>
+        </div>
+      </form>
+    </div>
+    <!-- AADHAAR ENROLMENT / CORRECTION Form End -->
+  </section>
+</main>

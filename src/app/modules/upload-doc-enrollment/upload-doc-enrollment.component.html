@@ -1,0 +1,130 @@
+<main class="container-fluid">
+  <form [formGroup]="registerDocumentForm" (ngSubmit)="onSubmit(f)" class="mt-4">
+    <div class="row">
+      <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+        <label>Select Proof of Identity Document</label><br />
+        <select class="w-100 p-1">
+          <option value="Passport">Passport</option>
+          <option value="Aadhar">Aadhar</option>
+          <option value="Driving Licence">Driving Licence</option>
+          <option value="PanCard">PanCard</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+        <label for="poi">Upload selectd document name</label>
+        <input type="file" (change)="onFileChange($event)" class="form-control-file" id="poi"
+          [ngClass]="{ 'is-invalid': submitted && f.file.errors }" />
+        <input type="hidden" name="fileHidden" formControlName="file" /> <!-- Validation Field -->
+        <span class="custom-file-control"></span>
+        <div *ngIf="submitted && f.file.errors" class="invalid-feedback">
+          <div *ngIf="f.file.errors.required">Please upload a file</div>
+        </div>
+        <div *ngIf="submitted && f.file.errors" class="invalid-feedback">
+          <div *ngIf="!f.file.errors.required && f.file.errors.fileType">Please upload only .PDF files</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+        <label>Select Proof of Address Document</label><br />
+        <select class="w-100 p-1">
+          <option value="Passport">Passport</option>
+          <option value="Aadhar">Aadhar</option>
+          <option value="Driving Licence">Driving Licence</option>
+          <option value="PanCard">PanCard</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+        <label for="poi">Upload (selectd document name)</label>
+        <input type="file" class="form-control-file" id="poi">
+        <span class="custom-file-control"></span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+        <label>Select Proof of Birth Document</label><br />
+        <select class="w-100 p-1">
+          <option value="Passport">Passport</option>
+          <option value="Aadhar">Aadhar</option>
+          <option value="Driving Licence">Driving Licence</option>
+          <option value="PanCard">PanCard</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+        <label for="poi">Upload (selectd document name)</label>
+        <input type="file" class="form-control-file" id="poi">
+        <span class="custom-file-control"></span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+        <label>Select</label><br />
+        <select class="w-100 p-1">
+          <option value="Aadhar Number">Aadhar Number</option>
+          <option value="EID">EID</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+        <label for="poi">Upload (EID or Aadhar card copy)</label>
+        <input type="file" class="form-control-file" id="poi">
+        <span class="custom-file-control"></span>
+      </div>
+    </div>
+    <h5 class="mt-3 upload-title">Resident's Date of Birth</h5>
+    <div class="row">
+      <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+        <label>Select Proof of Relation Document</label><br />
+        <select class="w-100 p-1">
+          <option value="Pension Card">Pension Card</option>
+          <option value="Birth Certificate">Birth Certificate</option>
+          <option value="10th Marksheet">10th Marksheet</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+        <label for="poi">Upload (selectd document name)</label>
+        <input type="file" class="form-control-file" id="poi">
+        <span class="custom-file-control"></span>
+      </div>
+    </div>
+
+    <h5 class="mt-3 upload-title">Document Upload (Optional)</h5>
+    <div class="row">
+      <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+        <label>Select Proof of Identity Document</label><br />
+        <select class="w-100 p-1">
+          <option value="Passport">Passport</option>
+          <option value="Aadhar">Aadhar</option>
+          <option value="Driving Licence">Driving Licence</option>
+          <option value="PanCard">PanCard</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+        <label for="poi">Upload (selectd document name)</label>
+        <input type="file" class="form-control-file" id="poi">
+        <span class="custom-file-control"></span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+        <label>Select Proof of Address Document</label><br />
+        <select class="w-100 p-1">
+          <option value="Passport">Passport</option>
+          <option value="Aadhar">Aadhar</option>
+          <option value="Driving Licence">Driving Licence</option>
+          <option value="PanCard">PanCard</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+        <label for="poi">Upload (selectd document name)</label>
+        <input type="file" class="form-control-file" id="poi">
+        <span class="custom-file-control"></span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-12 col-sm-12 col-xs-12 col-lg-12 mb-5">
+        <button type="button" class="btn btn-primary btn-sm reg-btn rounded-0" (click)="navigateToBack()">Back</button>
+        <button type="submit" class="btn btn-primary btn-sm float-right reg-btn rounded-0">Save and Proceed</button>
+      </div>
+    </div>
+  </form>
+</main>

@@ -1,0 +1,29 @@
+<app-top-navigation></app-top-navigation>
+<section class="back-header mt-96">
+  <div class="d-flex">
+    <img src="../../../assets/images/back-icon.png" alt="Back" class="mr-3 cursor"
+      (click)="navigateToPage('dashboard')">
+    <button class="clr-4a4 no-shadow bg-transparent border-0 no-outline" (click)="navigateToPage('dashboard')">Back to
+      Dashboard</button> / <button class="clr-4a4 no-shadow bg-transparent border-0 no-outline">New Enrolment</button>
+  </div>
+</section>
+
+<section class="container-fluid new-enrolment-section bg-ece pb-3">
+  <p class="enrolment-title text-center">New Enrolment</p>
+  <div class="row enrolment-wrap">
+    <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+      <div class="enrolment-inner-block" (click)="navigationToEnrolment(0)">
+        <p class="enrolment-ib-text text-center text-black">I have valid Identity proof and Address proof.</p>
+        <img src="../../../assets/images/arrow-icon.png" alt="Next" class="m-auto d-block cursor pt-3">
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" (click)="navigationToEnrolment(1)">
+      <div class="enrolment-inner-block">
+        <p class="enrolment-ib-text text-center text-black">I want to enrol with my relative's Aadhaar number(UID) or EID and I have
+          a valid proof of relation.</p>
+        <img src="../../../assets/images/arrow-icon.png" alt="Next" class="m-auto d-block cursor pt-3">
+      </div>
+    </div>
+  </div>
+</section>
+<app-footer-component [bodyHeight]='bodyHeight'></app-footer-component>

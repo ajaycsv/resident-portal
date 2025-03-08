@@ -1,0 +1,305 @@
+<app-top-navigation></app-top-navigation>
+<app-spinner [loader]='loader'></app-spinner>
+
+<!-- Navigation Tab -->
+<section class="dashboard-block-wrap mb-3">
+    <div class="container">
+        <div class="row py-3">
+            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6"></div>
+            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 dashboard-block cursor" (click)="handleClick()">
+                <img src="assets/images/new-enrolment-icon.png" class="m-auto d-block" alt="New Enrolment" />
+                <p class="mt-2 text-center">New Enrolment</p>
+            </div>
+            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 dashboard-block cursor" (click)="navigateToNewUpdate()">
+                <img src="assets/images/update-aadhaar-icon.png" class="m-auto d-block" alt="Update Aadhaar" />
+                <p class="mt-2 text-center">Update Aadhaar</p>
+            </div>
+            <!-- <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 dashboard-block">
+                <img src="assets/images/print-icon.png" class="m-auto d-block" alt="E-Aadhaar Print" />
+                <p class="mt-2 text-center">E-Aadhaar Print</p>
+            </div>
+            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 dashboard-block">
+                <img src="assets/images/miscellaneous-icon.png" class="m-auto d-block" alt="Miscellaneous Services" />
+                <p class="mt-2 text-center">Miscellaneous Services</p>
+            </div> -->
+            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6"></div>
+        </div>
+    </div>
+</section>
+<!-- Check the status here End-->
+<section class="container-fluid px-50 pb-50">
+    <!-- <section class="row flex-column-reverse flex-md-row mx-0"> -->
+    <section class="row mx-0">
+        <ul class="nav nav-pills mb-3 col-md-3 col-lg-3 col-sm-12 col-xs-12" id="active-draft" role="tablist">
+            <li class="nav-item w-50">
+                <a class="nav-link  app-status-btn w-100 text-center tab-active " [ngClass]="{'active' : !draftActive}"
+                    id="pills-active-tab" data-toggle="pill" href="#pills-active" role="tab"
+                    aria-controls="pills-active" aria-selected="true">Active</a>
+            </li>
+            <li class="nav-item w-50">
+                <a class="nav-link app-status-btn tab-draft w-100 text-center tab-active "
+                    [ngClass]="{'active' : draftActive}" id="pills-draft-tab" data-toggle="pill" href="#pills-draft"
+                    role="tab" aria-controls="pills-draft" aria-selected="false">Draft</a>
+            </li>
+        </ul>
+        <div class="tab-content w-100" id="pills-tabContent">
+            <div class="tab-pane fade" [ngClass]="{'show active' : !draftActive}" id="pills-active" role="tabpanel"
+                aria-labelledby="pills-active-tab">
+                <section class="row app-details-row" *ngFor="let app of submittedEnrolments; index as i">
+                    <div class="app-title-block col-md-2 col-lg-2 col-sm-12 col-xs-12 p-3">
+                        <div class="mb-3">
+                            <p class="app-title">Application Type</p>
+                            <p class="app-title-name clr-newel">{{app.enrolmentType}}</p>
+                        </div>
+                        <div class="mb-3">
+                            <p class="app-title">Appointment ID (AID)</p>
+                            <p class="app-title-name">{{app.appointmentId}}</p>
+                        </div>
+                        <div class="mb-3">
+                            <p class="app-title">Resident Name</p>
+                            <p class="app-title-name">{{app.fullName}}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-10 col-lg-10 col-sm-12 col-xs-12 px-0">
+                        <div class="status-row">
+                            <ul class="list-unstyled multi-steps py-3 mb-0">
+                                <li class="app-submit-icon">
+                                    <span class="status-title">Application Submitted On</span>
+                                    <span class="status-date">{{app.updatedAt | date: 'dd/MM/yyyy hh:mm:ss'}}</span>
+                                </li>
+                                <li class="doc-verification-icon" *ngIf="app.docStatus">
+                                    <span class="status-title">Documents Verification</span>
+                                    <span class="status-text clr-verified">{{app.docStatus}}</span>
+                                    <span class="status-date">{{app.docSubmittedOn}}</span>
+                                </li>
+                                <li [ngClass]="{'police-verification-icon-done': app.policeStatus === 'verified', 'police-verification-icon-failed':app.policeStatus === 'failed'}"
+                                    *ngIf="app.policeStatus">
+                                    <span class="status-title">Police Verification</span>
+                                    <span class="status-text"
+                                        [ngClass]="{'clr-verified': app.policeStatus === 'verified','clr-failed':app.policeStatus === 'failed'}">{{app.policeStatus}}</span>
+                                    <span class="status-date">{{app.policeVerificationDate}}</span>
+                                </li>
+                                <li class="book-appoinment-icon" *ngIf="app.enrolmentStatus !=='BOOKED'">
+                                    <span class="status-title">Book Appointment</span>
+                                    <button class="btn btn-primary send-otp-btn no-shadow"
+                                        (click)="handleBookAppointment(app)">Book Appointment</button>
+                                </li>
+                                <li class="book-appoinment-icon" *ngIf="app.enrolmentStatus ==='BOOKED'">
+                                    <span class="status-title">Book Appointment</span>
+                                    <button class="btn btn-primary send-otp-btn no-shadow"
+                                        (click)="openModal(rescheduleModal, app)">Reschedule Appointment</button>
+                                </li>
+                                <li class="no-data-icon">
+                                    <span class="status-title">Enrolment ID (EID)</span>
+                                    <span class="status-text to-be-generated">To-be-Generated</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Comment row -->
+                        <div class="comments-row p-4" *ngIf="app.policeStatus === 'failed'">
+                            <p><span>1</span> Comment</p>
+                            <div class="row mt-3">
+                                <div class="vc-icon col-md-1 col-lg-1 col-xs-3 col-sm-3 w-xs-25">
+                                    <img src="assets/images/police-icon.png" alt="police verification">
+                                </div>
+                                <div class="col-md-11 col-lg-11 col-xs-9 col-sm-9 w-xs-75">
+                                    <div class="row">
+                                        <div class="pvs-block col-md-6 col-lg-6 col-xs-6 col-sm-6">
+                                            <p class="clr-failed">Police Verifications Failed</p>
+                                            <P>Resident was unavailable at the given address after multiple visit.</P>
+                                        </div>
+                                        <div class="re-apply-btn-block col-md-6 col-lg-6 col-xs-6 col-sm-6">
+                                            <button type="button"
+                                                class="re-apply-btn btn btn-outline-primary no-shadow ">Re-apply</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comments-row p-3">
+                            <p class="text-center">
+                                <img src="assets/images/quotes-left.png" alt="Quotes"> No comments <img
+                                    src="assets/images/quotes-right.png" alt="Quotes"></p>
+                        </div>
+                    </div>
+                    <ng-template #rescheduleModal>
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="rescheduleModalLabel">Are you sure to reschedule the
+                                    booking</h5>
+                                <button type="button" (click)="modalRef.hide()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="p-4">
+                                            <p class=""><b>Enrolment Center Name : {{ this.enrollmentCenterDetails.ecName }}
+                                                </b>
+                                            </p>
+                                            <p class="mt-3"><b>Address : {{ this.enrollmentCenterDetails.ecAddress }}</b>
+                                            </p>
+                                            <p class="mt-3"><b>Date : {{ this.enrollmentCenterDetails.date }}
+                                                </b></p>
+                                            <p class="mt-3"><b>Time : {{ this.enrollmentCenterDetails.time }}</b></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row common-shadow modal-button-row mx-0 mb-1">
+                                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 p-3">
+                                        <button type="button" class="btn btn-info" (click)="modalRef.hide()">No</button>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6 p-3 text-right">
+                                        <button type="button" class="btn bg-btn btn-primary no-shadow"
+                                            (click)="modalRef.hide();handleRescheduleBookAppointment(app);">Yes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                </section>
+                <section class="row app-details-row" *ngFor="let app of submittedUpdateData;">
+                    <div class="app-title-block col-md-2 col-lg-2 col-sm-12 col-xs-12 p-3">
+                        <div class="mb-3">
+                            <p class="app-title">Application Type</p>
+                            <p class="app-title-name clr-newel">UPDATE</p>
+                        </div>
+                        <div class="mb-3">
+                            <p class="app-title">Appointment ID (AID)</p>
+                            <p class="app-title-name">{{app.appointmentId}}</p>
+                        </div>
+                        <div class="mb-3">
+                            <p class="app-title">Resident Name</p>
+                            <p class="app-title-name">{{app.fullName}}</p>
+                        </div>
+                        <div class="mb-3">
+                            <p class="app-title">Update Type</p>
+                            <p class="app-title-name"><span *ngFor="let updateList of app.data; index as i">{{updateList.updateType}}{{((app.data.length - (i + 1)) > 0) ? ', ': ''}}</span></p>
+                        </div>
+                    </div>
+                    <div class="col-md-10 col-lg-10 col-sm-12 col-xs-12 px-0">
+                        <div class="status-row">
+                            <ul class="list-unstyled multi-steps py-3 mb-0">
+                                <li class="app-submit-icon">
+                                    <span class="status-title">Application Submitted On</span>
+                                    <span class="status-date">{{app.updatedAt | date: 'dd/MM/yyyy hh:mm:ss'}}</span>
+                                </li>
+                                <li class="book-appoinment-icon" *ngIf="app.data[0].status !=='BOOKED'">
+                                    <span class="status-title">Book Appointment</span>
+                                    <button class="btn btn-primary send-otp-btn no-shadow"
+                                        (click)="handleUpdateBookAppoint(app)">Book Appointment</button>
+                                </li>
+                                <li class="book-appoinment-icon" *ngIf="app.data[0].status ==='BOOKED'">
+                                    <span class="status-title">Book Appointment</span>
+                                    <button class="btn btn-primary send-otp-btn no-shadow"
+                                        (click)="openModal(rescheduleModal, app)">Reschedule Appointment</button>
+                                </li>
+                                <li class="no-data-icon">
+                                    <span class="status-title">Enrolment ID (EID)</span>
+                                    <span class="status-text to-be-generated">To-be-Generated</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="comments-row p-3">
+                            <p class="text-center">
+                                <img src="assets/images/quotes-left.png" alt="Quotes"> No comments <img
+                                    src="assets/images/quotes-right.png" alt="Quotes"></p>
+                        </div>
+                    </div>
+                    <ng-template #rescheduleModal>
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="rescheduleModalLabel">Are you sure to reschedule the
+                                booking</h5>
+                            <button type="button" (click)="modalRef.hide()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="p-4">
+                                        <p class=""><b>Enrolment Center Name : {{ this.enrollmentCenterDetails.ecName }}
+                                            </b>
+                                        </p>
+                                        <p class="mt-3"><b>Address : {{ this.enrollmentCenterDetails.ecAddress }}</b>
+                                        </p>
+                                        <p class="mt-3"><b>Date : {{ this.enrollmentCenterDetails.date }}
+                                            </b></p>
+                                        <p class="mt-3"><b>Time : {{ this.enrollmentCenterDetails.time }}</b></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row common-shadow modal-button-row mx-0 mb-1">
+                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 p-3">
+                                    <button type="button" class="btn btn-info" (click)="modalRef.hide()">No</button>
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6 p-3 text-right">
+                                    <button type="button" class="btn bg-btn btn-primary no-shadow"
+                                        (click)="modalRef.hide();handleRescheduleBookAppointment(app);">Yes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </section>
+            </div>
+            <!-- Draft Tab -->
+            <div class="tab-pane fade" [ngClass]="{'show active' : draftActive}" id="pills-draft" role="tabpanel"
+                aria-labelledby="pills-draft-tab">
+                <section class="row app-details-row border-0 no-shadow bg-transparent">
+                    <div class="app-title-block col-md-3 col-lg-3 col-sm-12 col-xs-12 cursor bg-transparent p-0"
+                        *ngFor="let draft of draftedEnrolments; index as i">
+                        <div class="mr-2 mb-2 bg-f9 p-3" (click)="navigateToEnrolment(draft)">
+                            <div class="mb-3">
+                                <p class="app-title">Application Type</p>
+                                <p class="app-title-name clr-newel">{{draft.enrolmentType}}</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="app-title">Resident Name</p>
+                                <p class="app-title-name">{{draft.fullName}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="row app-details-row border-0 no-shadow bg-transparent">
+                    <div class="app-title-block col-md-3 col-lg-3 col-sm-12 col-xs-12 cursor bg-transparent p-0"
+                        *ngFor="let draft of draftedUpdatedData">
+                        <div class="app-title-block-inner mr-2 mb-2 bg-f9 p-3" (click)="navigateToUpdate(draft)">
+                            <div class="mb-3">
+                                <p class="app-title">Application Type</p>
+                                <p class="app-title-name clr-newel">UPDATE</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="app-title">Resident Name</p>
+                                <p class="app-title-name">{{draft.fullName}}</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="app-title">Update Type</p>
+                                <p class="app-title-name"><span *ngFor="let udateTypeList of draft.data; index as i">{{udateTypeList.updateType}}{{((draft.data.length - (i + 1)) > 0) ? ', ': ''}}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <!-- <h6 *ngIf="draftedEnrolments.length == 0 || submittedEnrolments.length == 0 || submittedUpdateEnrollments.length == 0 || draftedUpdatedEnrollments.length == 0">
+                No application submitted
+            </h6> -->
+        </div>
+        <!-- <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12 text-center">
+                <P><b>List of all the applications created and drafted by you.</b></P>
+                <h4 class="mt-2">All Applications</h4>
+            </div> -->
+    </section>
+    <section class="note-section my-3 bg-note">
+        <div class="row mx-0 pb-3 bg-transparent rounded-0">
+            <div class="mt-2 col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <img src="assets/images/note.png" class="d-inline-bloack align-baseline" align="Note">
+                <p class="note-text d-inline-block text-black ml-2"><b>Note:</b></p>
+                <p class="ml-4">All your past booking details will be available only for the 6 months from the date of
+                    registration.</p>
+            </div>
+        </div>
+    </section>
+</section>
+<div>
+    <app-footer-component [bodyHeight]='bodyHeight'></app-footer-component>
+</div>

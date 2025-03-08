@@ -1,0 +1,23 @@
+.back-header {
+	padding: 20px 50px;
+	height: 56px;
+	box-shadow: 0 -1px 7px 0 rgba(0, 0, 0, 0.19);
+	border: solid 1px #f4f4f4;
+	background-color: #ffffff;
+}
+
+.form-check-label {
+	line-height: 1.5rem;
+}
+
+.choose-update-page .form-group label, 
+.choose-update-page .form-check label {
+	margin: 0 0 0 20px;
+}
+
+@media screen and (max-width: 768px) {
+	.back-header {
+	    padding: 10px 15px;
+	    height: auto;
+	}
+}

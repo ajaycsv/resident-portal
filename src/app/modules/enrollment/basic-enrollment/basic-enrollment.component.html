@@ -1,0 +1,125 @@
+<app-top-navigation></app-top-navigation>
+<app-spinner [loader]='loader'></app-spinner>
+<section class="back-header mt-96" [routerLink]="['/' + validationMessages.ROUTERLINKS.DASHBOARD]">
+  <div class="d-flex">
+    <img src="../../../assets/images/back-icon.png" alt="Back" class="mr-3 cursor">
+    <button class="clr-4a4 no-shadow bg-transparent border-0 no-outline">Back to
+      Dashboard</button>
+  </div>
+</section>
+
+<section class="bg-ece container-fluid px-50 pb-4">
+  <app-bread-crumb></app-bread-crumb>
+  <!-- Name Row -->
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit(f)">
+    <div class="row">
+      <div class="form-group col-md-2 col-lg-2 pt-3">
+        <label>Enter Your</label>
+        <p class="label-name-bold">Full Name <span class="required-star">*</span></p>
+      </div>
+      <div class="form-group col-md-3 col-lg-3 col-xs-12 col-sm-12">
+        <label for="name">Name</label>
+        <input type="text" formControlName="fullName" class="form-control" id="fullName" placeholder="Name" autocomplete="off"
+          (keypress)="keyPress1($event)" [ngClass]="{ 'is-invalid': submitted && f.fullName.errors }" required>
+        <div *ngIf="submitted && f.fullName.errors" class="invalid-feedback">
+          <div *ngIf="f.fullName.errors.required">{{validationMessages.MESSAGES.FULL_NAME}}</div>
+        </div>
+      </div>
+    </div>
+    <!-- Date of Birth Row -->
+    <div class="row">
+      <div class="form-group col-md-2 col-lg-2 pt-3 pt-xs-0">
+        <label>Enter Your</label>
+        <p class="label-name-bold">Date Of Birth/Age <span class="required-star">*</span></p>
+      </div>
+      <div class="form-group col-md-3 col-lg-3 col-xs-12 col-sm-12 mb-0">
+        <div class="row mx-0">
+          <div class="form-check-inline">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input align-middle" name="typeOfId" value="dob"
+                formControlName="typeOfId">Select From
+              Calendar
+            </label>
+          </div>
+          <div class="form-check-inline">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input align-middle" name="typeOfId" value="age"
+                formControlName="typeOfId">Age
+            </label>
+          </div>
+        </div>
+        <div class="row ">
+          <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12" *ngIf='f.typeOfId.value == "dob"'>
+            <input type="date" formControlName="dateOfBirth" class="form-control" id="dob" placeholder="" max="{{maxDate | date:'yyyy-MM-dd'}}"
+            value="" [ngClass]="{ 'is-invalid': submitted && f.dateOfBirth.errors }" onkeydown="return false" min="{{minDate | date:'yyyy-MM-dd'}}">
+            <div *ngIf="submitted && f.dateOfBirth.errors" class="invalid-feedback">
+              <div *ngIf="f.dateOfBirth.errors.required">{{validationMessages.MESSAGES.DOB_REQUIRED}}</div>
+            </div>
+          </div>
+          <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12" *ngIf='f.typeOfId.value == "age"'>
+            <input type="text" formControlName="age" class="form-control" id="age" placeholder=""  autocomplete="off"
+              (keypress)="keyPress($event)" [ngClass]="{ 'is-invalid': submitted && f.age.errors }">
+            <div *ngIf="submitted && f.age.errors" class="invalid-feedback">
+              <div *ngIf="f.age.errors.required">{{validationMessages.MESSAGES.AGE_REQUIRED}}</div>
+              <div *ngIf="f.age.errors.min && f.age.errors.min.actual == 0">Age must be greater than 0</div>
+              <div *ngIf="f.age.errors.max && f.age.errors.max.actual >= 150">Age must be less than 150</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Date of Birth Row -->
+    <!-- <div class="row">
+      <div class="form-group col-md-2 col-lg-2 pt-3">
+        <label>Enter Your</label>
+        <p class="label-name-bold">Date Of Birth</p>
+      </div>
+      <div class="form-group col-md-3 col-lg-3 col-xs-12 col-sm-12">
+        <label for="dob">Select From Calendar <span class="required-star">*</span></label>
+        <input type="date" formControlName="dateOfBirth" class="form-control" id="dob" placeholder="" value="2017-06-01"
+          [ngClass]="{ 'is-invalid': submitted && f.dateOfBirth.errors }" (blur)="ageCalculator()" required>
+        <div *ngIf="submitted && f.dateOfBirth.errors" class="invalid-feedback">
+          <div *ngIf="f.dateOfBirth.errors.required">{{validationMessages.MESSAGES.DOB_REQUIRED}}</div>
+        </div>
+      </div>
+      <div class="form-group col-md-3 col-lg-3 col-xs-12 col-sm-12">
+        <label for="age">Age <span class="required-star">*</span></label>
+        <input type="text" formControlName="age" class="form-control input-disabled" id="age" placeholder="" readonly>
+      </div>
+    </div> -->
+    <!-- Gender Row -->
+    <div class="row">
+      <div class="form-group col-md-2 col-lg-2 pt-3 pt-xs-0">
+        <label>Select Your</label>
+        <p class="label-name-bold">Gender <span class="required-star">*</span></p>
+      </div>
+      <div class="form-group pt-4 col-md-3 col-lg-3 col-xs-12 col-sm-12 pt-xs-0">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" formControlName="gender"
+            value="MALE" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
+          <label class="form-check-label" for="inlineRadio1">Male</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" formControlName="gender"
+            value="FEMALE" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
+          <label class="form-check-label" for="inlineRadio2">Female</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="gender" id="inlineRadio3" formControlName="gender"
+            value="TRANSGENDER" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
+          <label class="form-check-label" for="inlineRadio3">Transgender</label>
+        </div>
+        <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+          <div *ngIf="f.gender.errors.required">{{validationMessages.MESSAGES.GENDER_REQUIRED}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-back-proceed ">
+      <button class="back-step text-center text-white no-shadow border-0 no-outline" (click)="goBack()">Back</button>
+      <button class="next-step text-center text-white no-shadow float-right border-0 no-outline">Save & Proceed</button>
+    </div>
+  </form>
+</section>
+<app-footer-component [bodyHeight]='bodyHeight'></app-footer-component>

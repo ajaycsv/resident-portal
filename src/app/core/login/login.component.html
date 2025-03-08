@@ -1,0 +1,153 @@
+<nav class="navbar navbar-expand-lg navbar-light top-navigation-fixed">
+  <div class="container">
+    <button class="navbar-toggler no-shadow no-outline border-0 px-0" type="button" data-toggle="collapse"
+      data-target="#navbarTogglerLogin" aria-controls="navbarTogglerLogin" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <p _ngcontent-c2="" class="text-white mr-lg-5 mr-md-5">Online Aadhaar Services</p>
+    <div class="collapse navbar-collapse" id="navbarTogglerLogin">
+      <ul class="nav nav-tabs border-bottom-0 navbar-nav mr-auto mt-2 mt-lg-0" id="registersTab" role="tablist">
+        <li class="nav-item mb-0">
+          <a class="nav-link active rounded-0 pl-md-0" id="register-tab" data-toggle="tab" href="#register" role="tab"
+            aria-controls="register" aria-selected="true">Login</a>
+        </li>
+        <li class="nav-item mb-0">
+          <a class="nav-link uidai-link rounded-0" href="https://uidai.gov.in/" role="tab" target="_blank"
+            aria-selected="false">UIDAI Home</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- Dashboard Tab Content -->
+<div class="tab-content container" id="registersTabContent">
+  <!-- Login/Registration Content -->
+  <div class="tab-pane fade show active pt-3" id="register" role="tabpanel" aria-labelledby="register-tab">
+    <!-- Login/One Time Registration -->
+    <!-- Note -->
+    <section class="note-section mb-3 bg-note">
+      <div class="row mx-0 pb-3 bg-transparent rounded-0">
+        <div class="mt-2 col-md-12 col-lg-12 col-sm-12 col-xs-12">
+          <img src="assets/images/note.png" class="d-inline-bloack align-baseline">
+          <p class="note-text d-inline-block text-black ml-2"><b>Note:</b></p>
+          <p class="ml-4">To continue with the process, please do one time registration with your phone number.</p>
+        </div>
+      </div>
+    </section>
+    <!-- Form section -->
+    <section class="row reg-form-wrap mx-md-0 mx-lg-0 py-3 mb-3">
+      <!-- <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 m-auto pb-3">
+        <div class="small-text text-center py-2">
+          <img src="assets/images/status-failed.png" alt="Warning" width="20">
+          <span class="required-star ml-3">*</span> Marked are mandatory fields
+        </div>
+      </div> -->
+      <!-- Registration Form Start -->
+      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 form-divider">
+        <form name="form" (ngSubmit)="(f.valid && enableOtpButton) ? onGetOTP(f) : ''" #f="ngForm" novalidate class="send-otp-form m-auto" [ngClass]="{'form-disabled': !enableOtpButton}">
+          <p class="login-title text-black mb-3">Login</p>
+          <div class="form-group">
+            <label for="mobileNumber">Enter your mobile number <span class="required-star">*</span></label>
+            <input type="text" class="form-control" id="mobileNumber" name="mobileNumber" maxlength="10" autocomplete="off"
+              [pattern]="mobnumPattern" [(ngModel)]="model.mobileNumber" #mobileNumber="ngModel"
+              (keypress)="keyPress($event)" [ngClass]="{ 'is-invalid': f.submitted && mobileNumber.invalid }"
+              required [disabled]="!enableOtpButton" />
+            <div *ngIf="f.submitted && mobileNumber.invalid" class="invalid-feedback">
+              <div *ngIf="mobileNumber.errors.required">Mobile Number is required</div>
+            </div>
+            <div *ngIf="mobileNumber.errors && f.submitted" class="invalid-feedback">
+              <div *ngIf="mobileNumber.errors.pattern">
+                Mobile number not valid.
+              </div>
+            </div>
+          </div>
+          <!-- Captcha -->
+          <div class="form-group">
+            <div class="row">
+              <div class="captcha-inner col-md-6 col-xs-6 col-sm-6 col-lg-6 w-50">
+                <!-- <img src="assets/images/captcha-icon.png" alt="Captcha" class="captcha-img" /> -->
+                <img *ngIf="imageBlobUrl" [src]="imageBlobUrl" alt="Captcha" class="captcha-img" />
+              </div>
+              <div class="try-another-block col-md-6 col-xs-6 col-sm-6 col-lg-6 text-right w-50" (click)="getCaptcha()">
+                <img src="assets/images/reload.png" alt="Refresh Captcha" class="align-baseline cursor">
+                <span class="captcha-refresh clr-darkish-blue p-0 ml-1 cursor text-left">Try<br>Another</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Enter Security/Captch Code -->
+          <div class="form-group">
+            <label for="enterSecurityCode">Enter the above captcha <span class="required-star">*</span></label>
+            <input type="text" class="form-control" id="captcha" placeholder="" name="captcha" autocomplete="off"
+              [(ngModel)]="model.captcha" #captcha="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && captcha.invalid }" maxlength="5" minlength="5" required [disabled]="!enableOtpButton">
+            <div *ngIf="f.submitted && captcha.invalid" class="invalid-feedback">
+              <div *ngIf="captcha.errors.required">{{msg.MESSAGES.CAPTCHA_REQ}}</div>
+            </div>
+            <div *ngIf="f.submitted && invalidCaptcha && !captcha.invalid" class="text-danger mt-2 w-100">
+              <div>{{msg.MESSAGES.WRONG_CODE}}</div>
+            </div>
+          </div>
+          <!-- Send OTP -->
+          <div class="form-group mb-0">
+            <button type="submit" class="btn text-white no-shadow no-outline btn-sm send-otp-btn">Send OTP</button>
+          </div>
+          <div class="horizontal-divider my-3 d-block d-sm-none"></div>
+        </form>
+      </div>
+      <!-- Enter OTP Form -->
+      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+        <form class="otp-form m-auto" [ngClass]="{'form-disabled':enableOtpButton}" name="form"
+          (ngSubmit)="(otpf.valid && !enableOtpButton) ? onOTPSubmit(otpf) : ''" #otpf="ngForm" novalidate>
+          <div class="form-group">
+            <label for="enterOTP">Enter OTP <span class="required-star">*</span></label>
+            <input type="text" class="form-control" id="OTP" name="OTP" placeholder="" [(ngModel)]="model.OTP"
+              maxlength="6" #OTP="ngModel" [ngClass]="{ 'is-invalid': otpf.submitted && OTP.invalid}"
+              [disabled]="enableOtpButton" required>
+            <div *ngIf="otpf.submitted && OTP.invalid" class="invalid-feedback">
+              <div *ngIf="OTP.errors.required">OTP is required</div>
+            </div>
+            <div *ngIf="invalidOtp" class="text-danger mt-2 w-100">
+                <div>{{msg.MESSAGES.WRONG_OTP}}</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="register-btn btn text-center text-white border-0"
+              [disabled]="!otpf.valid && enableOtpButton">Submit OTP & Proceed</button>
+            <p class="small-text clr-4a4 border-0 mt-3" *ngIf="!enableOtpButton && timeLeft === 60">Did not receive? <a
+                class="resend-otp clr-darkish-blue p-0 ml-1 cursor" (click)="resendOtp()">RESEND OTP</a></p>
+            <p class="small-text clr-4a4 border-0 mt-3" *ngIf="timeLeft > 0 && timeLeft !== 60">You can resend OTP in {{timeLeft}}s </p>
+          </div>
+        </form>
+      </div>
+      <!-- Registration Form End -->
+    </section>
+    <!-- <section class="mb-3">
+      <div class="d-block m-auto text-center">
+        <p class="d-inline-block">New user ?</p>
+        <button class="register-link btn btn-outline-info d-inline-block ml-3 no-shadow">Register</button>
+      </div>
+    </section> -->
+  </div>
+  <!-- Instructions to Follow Content -->
+  <div class="tab-pane fade" id="instruction" role="tabpanel" aria-labelledby="instruction-tab">
+    instruction
+  </div>
+  <!-- UIDAI Home Content -->
+  <div class="tab-pane fade" id="uidai" role="tabpanel" aria-labelledby="uidai-tab">
+    uidai
+  </div>
+  <!-- FAQ -->
+  <div class="tab-pane fade" id="faq" role="tabpanel" aria-labelledby="faq-tab">
+    faq
+  </div>
+  <!-- Contact Us -->
+  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+    contact us
+  </div>
+</div>
+<footer class="bg-footer" id="footerHeight">
+  <p class="text-center text-white copy-right py-3 m-auto">Copyright © 2019 Unique Identification Authority of India All Rights Reserved.</p>
+</footer>
+<!-- <app-footer-component [bodyHeight]='bodyHeight' *ngIf='bodyHeight'></app-footer-component> -->

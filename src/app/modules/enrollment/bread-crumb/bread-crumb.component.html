@@ -1,0 +1,20 @@
+<p class="enrolment-title text-center">Enter Your Details To Complete The New Enrolment Process</p>
+<section class="row enrolment-step-header mx-0">
+  <ul class="mb-0 w-100 pl-0">
+    <li class="inprogress cursor" [ngClass]="{'inprogress':currentRouteState === '/'+routes.ROUTERLINKS.BASIC_ENROLLMENT,
+                  'done':currentRouteState !== '/'+routes.ROUTERLINKS.BASIC_ENROLLMENT}"><span>1</span> <a
+        [routerLink]="['/' + routes.ROUTERLINKS.BASIC_ENROLLMENT]">Name, Age & Gender</a></li>
+    <li class="text-center" *ngIf="!tabState.addressTab" [ngClass]="{'inprogress cursor':currentRouteState === '/'+routes.ROUTERLINKS.ADDRESS_ENROLLMENT + id,
+                              'done cursor':currentRouteState !== '/'+routes.ROUTERLINKS.ADDRESS_ENROLLMENT + id}">
+      <span>2</span> <a [routerLink]="['/' + routes.ROUTERLINKS.ADDRESS_ENROLLMENT,id]">Address & Contact</a></li>
+    <li *ngIf="tabState.addressTab" class="text-center"><span>2</span> <a>Address & Contact</a></li>
+    <!-- <li class="" *ngIf="!tabState.photoTab" [ngClass]="{'inprogress cursor':currentRouteState === '/'+routes.ROUTERLINKS.PHOTO_UPLOAD,
+                              'done cursor':currentRouteState !== '/'+routes.ROUTERLINKS.PHOTO_UPLOAD}">
+      <span>3</span> <a [routerLink]="['/' + routes.ROUTERLINKS.PHOTO_UPLOAD]">Upload Photo</a></li>
+    <li *ngIf="tabState.photoTab" class=""><span>3</span> <a>Upload Photo</a></li> -->
+    <li class="text-right" *ngIf="!tabState.reviewTab" [ngClass]="{'inprogress cursor':currentRouteState === '/'+routes.ROUTERLINKS.REVIEW_ENROLLMENT,
+                             'done cursor':currentRouteState !== '/'+routes.ROUTERLINKS.REVIEW_ENROLLMENT}">
+      <span>3</span> <a [routerLink]="['/' + routes.ROUTERLINKS.REVIEW_ENROLLMENT]">Review & Submit</a></li>
+    <li *ngIf="tabState.reviewTab" class="text-right"><span>3</span> <a>Review & Submit</a></li>
+  </ul>
+</section>

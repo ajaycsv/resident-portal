@@ -1,0 +1,84 @@
+<!-- <main class="container-fluid mt-5">
+    <form [formGroup]="photoUploadForm" (ngSubmit)="onSubmit(f)">
+        <div class="row">
+            <div class="form-group col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <h5 class="form-title">Capture Photo</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+                <app-upload-file (messageEvent)="receiveMessage($event)"></app-upload-file>
+                <span class="custom-file-control"></span>
+            </div>
+        </div>
+        <div class="row my-4">
+            <div class="form-group col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <button type="button" class="btn btn-primary btn-sm reg-btn rounded-0">Back</button>
+                <a class="btn btn-primary btn-sm float-right reg-btn rounded-0" href="document-upload.html">Save and
+                    Proceed</a>
+            </div>
+        </div>
+    </form>
+</main> -->
+<app-top-navigation></app-top-navigation>
+<section class="bg-ece container-fluid px-50 pb-5">
+    <form [formGroup]="photoUploadForm" (ngSubmit)="onSubmit(f)">
+        <app-bread-crumb></app-bread-crumb>
+        <div class="">
+            <div class="webcam-image m-auto"></div>
+            <h5 class="text-center mb-3 mt-30">Upload the file from your computer.</h5>
+            <div class="form-group mb-2">
+                <!-- <input type="file" name="" class="m-auto d-block"> -->
+                <app-upload-file (messageEvent)="receiveMessage($event)"></app-upload-file>
+            </div>
+            <p class="clr-4a4 text-center">Supported file formats are: .png and .jpg | Support file size: Maximum of 500
+                KB
+            </p>
+        </div>
+
+        <div class="row bg-white mx-0 do-n-dont">
+            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 vertical-divider">
+                <p class="title clr-verified text-center">Do’s</p>
+                <ul class="clr-666 mb-0 align-top d-inline-block">
+                    <li>Photo size: 35mm width by 50mm height</li>
+                    <li>No Border</li>
+                    <li>Sharp and full-colored with white background</li>
+                    <li>Taken with the last 6 months</li>
+                    <li>Full face with headgear</li>
+                    <li>The face in the image must be from chin to crown</li>
+                </ul>
+                <figure class="float-right">
+                    <img src="../../../assets/images/photo-preview-bitmap.png" alt="placeholder">
+                    <figcaption class="clr-verified text-center mt-4">35 mm</figcaption>
+                </figure>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                <p class="title clr-failed text-center">Dont’s</p>
+                <div class="w-100">
+                    <figure>
+                        <img src="../../../assets/images/photo-preview-bitmap.png" alt="placeholder">
+                        <figcaption class="clr-failed text-center mt-4">Blur</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="../../../assets/images/photo-preview-bitmap.png" alt="placeholder">
+                        <figcaption class="clr-failed text-center mt-4">Blur</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="../../../assets/images/photo-preview-bitmap.png" alt="placeholder">
+                        <figcaption class="clr-failed text-center mt-4">Blur</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="../../../assets/images/photo-preview-bitmap.png" alt="placeholder">
+                        <figcaption class="clr-failed text-center mt-4">Blur</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-back-proceed ">
+            <button class="back-step text-center text-white no-shadow border-0 no-outline">Back</button>
+            <button class="next-step text-center text-white no-shadow float-right border-0 no-outline">Save &
+                Proceed</button>
+        </div>
+    </form>
+</section>

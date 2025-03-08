@@ -1,0 +1,103 @@
+.back-header {
+	box-shadow: 0 -1px 7px 0 rgba(0, 0, 0, 0.19);
+	border: solid 1px #f4f4f4;
+	background-color: #ffffff;
+}
+
+.ec-address {
+ 	color: #666666
+}
+
+.slots-title {
+	font-size: 1.25rem;
+	font-weight: bold;
+	line-height: 28px;
+}
+
+.slot-box {
+	font-size: 10px;
+	font-weight: bold;
+	border-radius: 6px;
+	border: solid 1px #d6d6d6;
+	background-color: #ffffff;
+	padding-top: 10px;
+	padding-bottom: 10px;
+    min-width: 100px;
+	text-align: center;
+	opacity: 0.5;
+}
+
+.custom-calendar {
+	width: auto;
+	height: 436px;
+	border-radius: 6px;
+	border: solid 1px #979797;
+	background-image: linear-gradient(to top, #ffffff, #f1f3f5);
+}
+
+.form-check-input {
+    margin-top: 2px;
+}
+
+.available-date {
+	color: #68b90f;
+}
+
+.not-available-date {
+	font-weight: bold;
+  	color: #d0021b;
+}
+
+.available-slot {
+	color: #68b90f;
+	opacity: 1;
+}
+
+.circle {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	margin-top: 1px;
+}
+
+.not-available-slot {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+@media screen and (max-width: 768px) {
+	.custom-calendar {
+		margin: 0 0 24px 0;
+		height: 315px;
+	}
+	.ui-datepicker td {
+        padding: 0px 4px !important;
+        height: 30px;
+        width: 30px;
+    }
+}
+
+@media only screen and (min-width : 768px) and (max-width : 1024px)  { 	
+	.col-sm-6 {
+	    -ms-flex: 0 0 50%;
+	    flex: 0 0 50%;
+	    max-width: 50%;
+	}
+}
+
+
+.btn-primary:not(:disabled):not(.disabled).active, 
+.btn-primary:not(:disabled):not(.disabled):active, 
+.show>.btn-primary.dropdown-toggle,
+.cancel-btn,
+.cancel-btn:focus,
+.cancel-btn:active,
+.cancel-btn:hover {
+    color: #fff;
+    background-color: #2ea2cd;
+    border-color: #2ea2cd;
+}
+
+.w-160 {
+	width: 160px;
+}

@@ -1,0 +1,127 @@
+<app-spinner [loader]='loader'></app-spinner>
+<app-top-navigation></app-top-navigation>
+<section class="back-header mt-96">
+  <div class="d-flex" [routerLink]="['/' + appointment.ROUTERLINKS.DASHBOARD]">
+    <img src="../../../assets/images/back-icon.png" alt="Back" class="mr-3 cursor">
+    <button class="clr-4a4 no-shadow bg-transparent border-0 no-outline">Back to
+      Dashboard</button>
+  </div>
+</section>
+<section class="container-fluid find-ec-page bg-ece px-50 pb-50">
+  <div class="row pb-3">
+    <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+      <h5 class="title mb-0 py-3">Locate The Enrolment/Update Center Near You</h5>
+      <div class="common-shadow">
+        <!-- Search By Name Form -->
+        <form [formGroup]="globalSearchForm" (ngSubmit)="onSubmitGlobalSearch(g)">
+          <div class="form-group p-3 mb-0">
+            <label for="searchName">Search</label>
+            <input type="text" formControlName="searchName" class="form-control w-100" id="searchName"
+              placeholder="Enrolment Center Name" [ngClass]="{ 'is-invalid': searchTextSubmitted && g.searchName.errors }">
+            <div *ngIf="searchTextSubmitted && g.searchName.errors" class="invalid-feedback">
+              <div *ngIf="g.searchName.errors.required">Search Text is required</div>
+            </div>
+            <button class="btn bg-btn locate-center no-shadow btn-primary mt-3">Get Details</button>
+          </div>
+        </form>
+        <div class="horizontal-divider"></div>
+        <!-- Search By PINCode Form -->
+        <form [formGroup]="pinCodeSearchForm" (ngSubmit)="onSubmitPinCodeSearch(p)">
+          <div class="form-group p-3 mb-0">
+            <label for="searchPincode">Search Postal (PIN) Code</label>
+            <input type="text" formControlName="searchPincode" class="form-control w-100" id="searchPincode"
+              placeholder="560001" (keypress)="keyPress($event)" [attr.maxlength]="6"
+              [ngClass]="{ 'is-invalid': pinCodeSubmitted && p.searchPincode.errors }">
+            <div *ngIf="pinCodeSubmitted && p.searchPincode.errors" class="invalid-feedback">
+              <div *ngIf="p.searchPincode.errors.required">PinCode is required</div>
+              <div *ngIf="p.searchPincode.errors.max">Password must be at least 6 characters</div>
+            </div>
+            <button class="btn bg-btn locate-center no-shadow btn-primary mt-3">Get Details</button>
+          </div>
+        </form>
+        <div class="horizontal-divider"></div>
+        <!-- Search By State/District/Sub District/Village/Town/City Form -->
+        <form class="p-3" [formGroup]="stateCenterSearchForm" (ngSubmit)="onSubmitStateSearch(s)">
+          <div class="row">
+            <div class="form-group col-md-6 col-lg-6 col-sm-12 col-xs-12">
+              <!-- <label for="searchState">State <span class="required-star">*</span></label>
+                <input type="text" formControlName="searchState" class="form-control w-100" id="searchState" required=""> -->
+              <label for="searchState">State <span class="required-star">*</span></label>
+              <select class="cs-select" id="searchState" formControlName="searchState" class="form-control" [ngClass]="{ 'is-invalid': searchStateFormSubmitted && s.searchState.errors }">
+                <option value="" selected>Select</option>
+                <option *ngFor="let stateItem of statesData" [value]="stateItem.stateCode">{{stateItem.stateName}}</option>
+              </select>
+              <div *ngIf="searchStateFormSubmitted && s.searchState.errors" class="invalid-feedback">
+                <div *ngIf="s.searchState.errors">State is required</div>
+              </div>
+            </div>
+            <div class="form-group col-md-6 col-lg-6 col-sm-12 col-xs-12">
+              <!-- <label for="searchDistrict">District</label>
+                <input type="text" formControlName="searchDistrict" class="form-control w-100" id="searchDistrict"> -->
+              <label for="searchDistrict">District</label>
+              <select class="cs-select" id="searchDistrict" formControlName="searchDistrict" class="form-control" [ngClass]="{ 'is-invalid': searchStateFormSubmitted && s.searchDistrict.errors }">
+                  <option value="" selected>Select</option>
+                  <option *ngFor="let districtItem of districtData" [value]="districtItem.districtCode">{{districtItem.districtName}}</option>
+              </select>
+              <div *ngIf="searchStateFormSubmitted && s.searchDistrict.errors" class="invalid-feedback">
+                <div *ngIf="s.searchDistrict.errors">District is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-6 col-lg-6 col-sm-12 col-xs-12">
+              <!-- <label for="searchSubDistrict">Sub District</label>
+                <input type="text" formControlName="searchSubDistrict" class="form-control w-100" id="searchSubDistrict"> -->
+              <label for="searchSubDistrict">Sub District</label>
+              <select class="cs-select" id="searchSubDistrict" formControlName="searchSubDistrict" class="form-control" [ngClass]="{ 'is-invalid': searchStateFormSubmitted && s.searchSubDistrict.errors }">
+                <option value="" selected>Select</option>
+                <option *ngFor="let subDistrictItem of subDistrictData" [value]="subDistrictItem.subDistrictCode">{{subDistrictItem.subdistrictName}}</option>
+              </select>
+              <div *ngIf="searchStateFormSubmitted && s.searchSubDistrict.errors" class="invalid-feedback">
+                <div *ngIf="s.searchSubDistrict.errors">Sub District is required</div>
+              </div>
+            </div>
+            <div class="form-group col-md-6 col-lg-6 col-sm-12 col-xs-12">
+              <!-- <label for="searchVillage">Village/Town/City</label>
+                <input type="text" formControlName="searchVillage" class="form-control w-100" id="searchVillage"> -->
+              <label for="searchVillage">Village/Town/City</label>
+              <select class="cs-select" id="searchVillage" formControlName="searchVillage" class="form-control" [ngClass]="{ 'is-invalid': searchStateFormSubmitted && s.searchVillage.errors }">
+                <option value="" selected>Select</option>
+                <option *ngFor="let vtcItem of vtcData" [value]="vtcItem.villageCode">{{vtcItem.villageName}}</option>
+              </select>
+              <div *ngIf="searchStateFormSubmitted && s.searchVillage.errors" class="invalid-feedback">
+                <div *ngIf="s.searchVillage.errors">Village/Town/City is required</div>
+              </div>
+            </div>
+          </div>
+          <button class="btn bg-btn locate-center no-shadow btn-primary">Get Details</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12 search-placeholder" *ngIf="enrolmenCenters.length === 0 && !enrolmenCentersFlag">
+      <div class="search-placeholder-inner  align-self-center">
+        <h5 class="clr-4a4 text-center title">Search to see the results here</h5>
+      </div>
+    </div>
+    <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12 search-placeholder" *ngIf="enrolmenCenters.length === 0 && enrolmenCentersFlag">
+      <div class="search-placeholder-inner  align-self-center">
+        <h5 class="clr-4a4 text-center title">No Enrolment Centers Found</h5>
+      </div>
+    </div>
+    <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12" *ngIf="enrolmenCenters.length !== 0">
+      <h5 class="title clr-failed text-center mb-0 py-3">{{enrolmenCenters.length}} Enrolment Centers Found</h5>
+      <div class="enrolment-center-list" *ngFor="let center of enrolmenCenters">
+        <div class="enrolment-center row p-3 mx-0 mb-3">
+          <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12 px-0">
+            <p class="ec-name text-black">{{center.ecName}}</p>
+            <p class="ec-address">{{center.fullAdrs}}</p>
+          </div>
+          <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12 px-0 align-self-center">
+            <button class="book-appoinment-btn btn btn-primary bg-btn no-shadow float-right h-auto" (click)="handleSlotBooking(center)">Book Appoinment</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<app-footer-component [bodyHeight]='bodyHeight'></app-footer-component>

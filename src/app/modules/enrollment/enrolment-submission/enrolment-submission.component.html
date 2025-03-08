@@ -1,0 +1,20 @@
+<app-top-navigation></app-top-navigation>
+<section class="back-header mt-96">
+  <div class="d-flex" [routerLink]="['/' + appointment.ROUTERLINKS.DASHBOARD]">
+    <img src="../../../assets/images/back-icon.png" alt="Back" class="mr-3 cursor">
+    <button class="clr-4a4 no-shadow bg-transparent border-0 no-outline">Back to
+      Dashboard</button>
+  </div>
+</section>
+<section class="container-fluid px-50 bg-ece py-3">
+  <div class="row text-center appid-section mx-0 common-shadow py-4">
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+      <h2 class="title">Thank You!</h2>
+      <p class="my-2">We will keep you informed by sending updates on your registered mobile number {{mobileNUmber}}</p>
+      <p class=""><b>Your Appointment ID (AID) is: {{id}}</b></p>
+      <h6 class="mt-2 mb-3">Book your appointment at your nearest enrolment center.</h6>        
+      <button type="submit" class="btn text-white no-shadow no-outline btn-sm send-otp-btn" (click)="handleBookAppointmnet()">Book Appointment</button>
+    </div>
+  </div>
+</section>
+<app-footer-component [bodyHeight]='bodyHeight'></app-footer-component>

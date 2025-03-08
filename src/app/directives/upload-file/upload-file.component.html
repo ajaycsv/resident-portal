@@ -1,0 +1,12 @@
+<form [formGroup]="uploadDocumentForm" (ngSubmit)="onSubmit(f)">
+  <input type="file" (change)="onFileChange($event)" class="m-auto d-block" id="poi"
+    [ngClass]="{ 'is-invalid': submitted && f.file.errors }" />
+  <input type="hidden" name="fileHidden" formControlName="file" /> 
+  <span class="custom-file-control"></span>
+  <div *ngIf="submitted && f.file.errors" class="invalid-feedback">
+    <div *ngIf="f.file.errors.required">Please upload a file</div>
+  </div>
+  <div *ngIf="submitted && f.file.errors" class="invalid-feedback">
+    <div *ngIf="!f.file.errors.required && f.file.errors.fileType">Please upload only images</div>
+  </div>
+</form>

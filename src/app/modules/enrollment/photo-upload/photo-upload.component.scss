@@ -1,0 +1,39 @@
+.webcam-image {
+	width: 132px;
+	height: 188px;
+	border-radius: 6px;
+	background-color: #383838;
+}
+
+.do-n-dont {
+	padding: 30px 0px;
+	margin: 40px 0;
+}
+
+.do-n-dont .title {
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 40px;
+}
+
+.do-n-dont ul li {
+	line-height: 30px;
+}
+
+.do-n-dont figure {
+	display: inline-block;
+	margin: 0 10px;
+	width: 22%;
+}
+
+.do-n-dont figure img {
+	width: 100%;
+	height: 188px;
+	border: solid 2px #979797;
+	background-color: #ffffff;
+}
+
+.do-n-dont figure figcaption {
+	font-size: 13px;
+	font-weight: bold;
+}

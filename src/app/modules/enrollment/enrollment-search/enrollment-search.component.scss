@@ -1,0 +1,97 @@
+.common-shadow {
+	border-radius: 6px;
+	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.06);
+	border: solid 1px #ebebeb;
+	background-color: #ffffff;
+}
+
+.find-ec-page label {
+	font-weight: bold;
+}
+
+.find-ec-page .title {
+	font-size: 1.125rem;
+}
+
+.location-distance {
+	font-size: 10px;
+	font-weight: bold;
+	color: #4a4a4a;
+}
+
+.enrolment-center {
+	border-radius: 6px;
+	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.06);
+	border:  1px solid #ebebeb;
+	background-color: #ffffff;
+}
+
+.ec-name {
+	font-size: 13px;
+	font-weight: bold;
+}
+
+.ec-address {
+  color: #666666
+}
+
+.book-appoinment-btn {}
+
+.or-text {
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 0px;
+	letter-spacing: normal;
+}
+
+
+.or-text-left {
+	background: #ececec;
+	width: 45%;
+	height: 1px;
+}
+
+.or-text-right {
+	background: #ececec;
+	width: 45%;
+	height: 1px;
+}
+
+.locate-center-btn {
+	min-width: 160px;
+}
+
+
+@media screen and (max-width: 768px) {
+	.book-appoinment-btn {
+		float: none !important;
+    	margin-top: 16px;
+	}
+}
+
+@media only screen and (min-width : 768px) and (max-width : 1024px)  { 	
+	.ec-address {
+		padding-right: 15px;
+	}
+	.find-ec-page .title {
+		font-size: 0.875rem;
+		min-height: 65px;
+	}
+	.find-ec-page .search-placeholder {
+		margin-top: 65px;
+	}
+	.col-md-6 {
+	    -ms-flex: 0 0 100%;
+	    flex: 0 0 100%;
+	    max-width: 100%;
+	}
+}
+
+@media only screen and (min-device-width : 1024px) and (max-device-width : 1299px) {
+	.find-ec-page .title {
+		min-height: 75px;
+	}
+	.find-ec-page .search-placeholder {
+		margin-top: 75px;
+	}
+}

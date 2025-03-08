@@ -1,0 +1,128 @@
+<app-top-navigation></app-top-navigation>
+<app-spinner [loader]='loader'></app-spinner>
+<section class="back-header mt-96">
+  <div class="d-flex" [routerLink]="['/' + appointment.ROUTERLINKS.DASHBOARD]">
+    <img src="../../../assets/images/back-icon.png" alt="Back" class="mr-3 cursor">
+    <button class="clr-4a4 no-shadow bg-transparent border-0 no-outline">Back to
+      Dashboard</button>
+  </div>
+</section>
+<section class="container-fluid px-50 bg-ece py-3">
+  <section class="preview-n-submit mb-0 p-3 common-shadow">
+    <div class="row">
+      <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12"
+        *ngIf="updateNameRecord[0] && updateNameRecord[0].response.newValue">
+        <label class="label-name-bold">Updated Name</label>
+        <div class="single-details">{{ updateNameRecord[0].response.newValue}}</div>
+      </div>
+      <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12 align-self-center mb-md-0 mb-lg-0"
+        *ngIf="updateGenderRecord[0] && updateGenderRecord[0].response.newValue">
+        <div class="form-check form-check-inline">
+          <label class="label-name-bold mr-5">Updated Gender</label>
+          <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" checked>
+          <label>{{updateGenderRecord[0].response.newValue}}</label>
+        </div>
+      </div>
+      <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12"
+        *ngIf="updateDobRecord[0] && updateDobRecord[0].response.newValue">
+        <label class="label-name-bold">Updated Date Of Birth</label>
+        <div class="single-details">{{updateDobRecord[0].response.newValue | date: 'dd/MM/yyyy'}}</div>
+      </div>
+      <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12" *ngIf="updateBiometric.length !== 0">
+        <label class="label-name-bold">Biometrics (Finger Prints, Iris & Photograph)</label>
+        <div class="single-details">YES</div>
+      </div>
+      <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12"
+        *ngIf="updateMobileRecord[0] && updateMobileRecord[0].response.newValue">
+        <label class="label-name-bold">Updated Mobile No.</label>
+        <div class="single-details">{{updateMobileRecord[0].response.newValue}}</div>
+      </div>
+      <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12"
+        *ngIf="updateEmailRecord[0] && updateEmailRecord[0].response.newValue">
+        <label class="label-name-bold">Updated Email</label>
+        <div class="single-details">{{updateEmailRecord[0].response.newValue}}</div>
+      </div>
+    </div>
+    <!-- Address Row -->
+    <div class="row" *ngIf="updateAddressRecord[0] && updateAddressRecord[0].response.newValue">
+      <div class="form-group col-md-2 col-lg-2 col-sm-12 col-xs-12 pt-3">
+        <label>Your</label>
+        <p class="label-name-bold">Updated Address</p>
+      </div>
+      <div class="col-md-10 col-lg-10 col-sm-12 col-xs-12">
+        <div class="row">
+          <div class="form-group col-md-1 col-lg-1 col-xs-12 col-sm-12">
+            <label class="v-hidden">C/O</label>
+            <div class="single-details w-100 mt-1 text-center">C/O</div>
+          </div>
+          <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12" *ngIf="addressRecord.careOfName">
+            <label for="houseNo">Name</label>
+            <div class="single-details">{{addressRecord.careOfName}}</div>
+          </div>
+          <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12" *ngIf="addressRecord.houseNo">
+            <label for="houseNo">House/Bldg/Apt No</label>
+            <div class="single-details">{{addressRecord.houseNo}}</div>
+          </div>
+          <div class="form-group col-md-3 col-lg-3 col-xs-12 col-sm-12" *ngIf="addressRecord.street">
+            <label for="houseNo">Street/Road/Lane</label>
+            <div class="single-details">{{addressRecord.street}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-3 col-lg-3 col-xs-12 col-sm-12" *ngIf="addressRecord.landMark">
+              <label for="landmark">Landmark</label>
+              <div class="single-details">{{addressRecord.landMark}}</div>
+          </div>
+          <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12" *ngIf="addressRecord.area">
+            <label for="addressLine1">Area/Locator/Sector</label>
+            <div class="single-details">{{addressRecord.area}}</div>
+          </div>
+          <div class="form-group col-md-3 col-lg-3 col-xs-12 col-sm-12" *ngIf="addressRecord.pinCode">
+            <label for="pincode">Pincode</label>
+            <div class="single-details">{{addressRecord.pinCode}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-3 col-lg-3 col-xs-12 col-sm-12" *ngIf="addressRecord.vtc">
+            <label for="village">Village</label>
+            <div class="single-details">{{addressRecord.vtc}}</div>
+          </div>
+          <div class="form-group col-md-3 col-lg-3 col-xs-12 col-sm-12" *ngIf="addressRecord.subdistrict">
+            <label for="postOffice">Post Office</label>
+            <div class="single-details">{{addressRecord.subdistrict}}</div>
+          </div>
+          <div class="form-group col-md-3 col-lg-3 col-xs-12 col-sm-12" *ngIf="addressRecord.district">
+            <label for="district">District</label>
+            <div class="single-details">{{addressRecord.district}}</div>
+          </div>
+          <div class="form-group col-md-3 col-lg-3 col-xs-12 col-sm-12" *ngIf="addressRecord.state">
+            <label for="state">State</label>
+            <div class="single-details">{{addressRecord.state}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-check col-md-12 col-lg-12 col-sm-12 col-xs-12">
+      <input class="form-check-input disclosure-checkbox" type="checkbox"  [(ngModel)]="isChecked" name="isChecked" id="isChecked">
+      <h6><b>Disclosure under section 3(2) of THE AADHAAR (TARGETED DELIVERY OF FINANCIAL AND OTHER SUBSIDIES, BENEFITS
+          AND SERVICES) ACT, 2016</b></h6>
+      <h6>I confirm that I have been residing in India for at least 182 days in the preceding 12 months &amp;
+        information
+        (including biometrics) provided by me to the UIDAI is my own and is true, correct and accurate. I am aware that
+        my
+        information including biometrics will be used for generation of Aadhaar and authentication. I understand that my
+        identity information (except core biometric) may be provided to an agency only with my consent during
+        authentication or as per the provisions of the Aadhaar Act. I have a right to access my identity information
+        (except core biometrics) following the procedure laid down by UIDAI.</h6>
+    </div>
+  </section>
+  <div class="footer-back-proceed mt-3 p-3">
+    <button class="back-step text-center text-white no-shadow border-0 no-outline" (click)="handleEdit()">Edit</button>
+    <button class="next-step text-center text-white no-shadow float-right border-0 no-outline" [ngClass]="{'no-cursor': !isChecked}"
+      (click)="(!isChecked) ? '' : handleSubmit()" [disabled]="!isChecked">Submit</button>
+  </div>
+</section>
+<footer class="bg-footer" id="footerHeight">
+  <p class="text-center text-white copy-right py-3 m-auto">Copyright © 2019 Unique Identification Authority of India All
+    Rights Reserved.</p>
+</footer>

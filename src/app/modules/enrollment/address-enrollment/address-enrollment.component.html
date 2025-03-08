@@ -1,0 +1,273 @@
+<app-top-navigation></app-top-navigation>
+<section class="back-header mt-96">
+  <div class="d-flex" [routerLink]="['/' + validationMessages.ROUTERLINKS.DASHBOARD]">
+    <img src="../../../assets/images/back-icon.png" alt="Back" class="mr-3 cursor">
+    <button class="clr-4a4 no-shadow bg-transparent border-0 no-outline">Back to
+      Dashboard</button>
+  </div>
+</section>
+<app-spinner [loader]='loader'></app-spinner>
+<section class="bg-ece container-fluid px-50 pb-50">
+  <app-bread-crumb></app-bread-crumb>
+  <form [formGroup]="addressForm" (ngSubmit)="onSubmit(f)">
+    <!-- Relation Details Row Start -->
+  <div class="row mt-lg-3 mt-md-3" *ngIf='id==1'>
+      <div class="form-group col-md-2 col-lg-2 pt-3">
+        <label>Enter Your</label>
+        <p class="label-name-bold">Relative's Details</p>
+      </div>
+      <div class="col-md-10 col-lg-10 col-xs-12 col-sm-12">
+        <div class="row">
+          <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+            <label for="relationType">Relation Type <span class="required-star">*</span></label>
+            <select class="form-control cs-select" id="relationType" formControlName="relationType"
+              [ngClass]="{ 'is-invalid': submitted && f.relationType.errors }">
+              <option value="" selected>Select</option>
+              <option *ngFor="let relationType of relations" [value]="relationType">{{relationType}}</option>
+            </select>
+            <div *ngIf="submitted && f.relationType.errors" class="invalid-feedback">
+              <div *ngIf="f.relationType.errors.required">Realtion Type is required</div>
+            </div>
+          </div>
+          <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+            <label for="relativeName">Relative Name <span class="required-star">*</span></label>
+            <input type="text" class="form-control w-100" id="relativeName" placeholder=""  (keypress)="keyPress1($event)"  autocomplete="off"
+              formControlName="relativeName" [ngClass]="{ 'is-invalid': submitted && f.relativeName.errors }">
+            <div *ngIf="submitted && f.relativeName.errors" class="invalid-feedback">
+              <div *ngIf="f.relativeName.errors.required">Relative name is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12 align-self-center">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="typeOfId" id="aadhaarNumber" formControlName="typeOfId"  autocomplete="off"
+                value="aadhaarNumber">
+              <label class="form-check-label" for="aadhaarNumber">Aadhaar Number</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="typeOfId" formControlName="typeOfId" id="eidNumber"  autocomplete="off"
+                placeholder="" value="eidNumber">
+              <label class="form-check-label" for="eidNumber">EID Number</label>
+            </div>
+          </div>
+          <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12" *ngIf='f.typeOfId.value == "aadhaarNumber"'>
+            <label for="inpAadhaarNumber">Aadhaar Number <span class="required-star">*</span></label>
+            <input type="text" class="form-control w-100" id="inpAadhaarNumber" placeholder="" [attr.maxlength]="12"  autocomplete="off"
+              formControlName="aadhaarNumber" [ngClass]="{ 'is-invalid': submitted && f.aadhaarNumber.errors }" (keypress)="keyPress($event)">
+            <div *ngIf="submitted && f.aadhaarNumber.errors" class="invalid-feedback">
+              <div *ngIf="f.aadhaarNumber.errors.required">Aadhaar number is required</div>
+              <div *ngIf="f.aadhaarNumber.errors.maxlength || f.aadhaarNumber.errors.minlength">Aadhar number must be 12 digits</div>
+            </div>
+          </div>
+          <div class="form-group col-md-3 col-lg-3 col-xs-12 col-sm-12" *ngIf='f.typeOfId.value == "eidNumber"'>
+            <label for="inpEidNumber">EID Number <span class="required-star">*</span></label>
+            <input type="text" class="form-control w-100" id="inpEidNumber" placeholder="" formControlName="eidNumber" [attr.maxlength]="14"  autocomplete="off"
+              [ngClass]="{ 'is-invalid': submitted && f.eidNumber.errors }"  (keypress)="keyPress($event)">
+            <div *ngIf="submitted && f.eidNumber.errors" class="invalid-feedback">
+              <div *ngIf="f.eidNumber.errors.required">Enrolment Id is required</div>
+              <div *ngIf="f.eidNumber.errors.maxlength || f.eidNumber.errors.minlength">Eid Number must be 14 digits</div>
+            </div>
+          </div>
+          <div class="form-group col-md-3 col-lg-3 col-xs-12 col-sm-12" *ngIf='f.typeOfId.value == "eidNumber"'>
+            <label for="inpEidNumber" class="v-hidden">EID Time</label>
+            <input type="text" class="form-control w-100" id="inpEidNumberDate" placeholder="DD/MM/YYYYHH:MM:SS" formControlName="eidNumberDate" [attr.maxlength]="14"  autocomplete="off"
+              [ngClass]="{ 'is-invalid': submitted && f.eidNumberDate.errors }"  (keypress)="keyPress($event)">
+            <div *ngIf="submitted && f.eidNumberDate.errors" class="invalid-feedback">
+              <div *ngIf="f.eidNumberDate.errors.required">Enrolment Id is required</div>
+              <div *ngIf="f.eidNumberDate.errors.maxlength || f.eidNumberDate.errors.minlength">Eid Number must be 14 digits</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="horizontal-divider my-3 my-xs-0" *ngIf='id==1'></div>
+    <div class="row">
+      <div class="form-group col-md-2 col-lg-2 col-sm-12 col-xs-12 pt-3">
+        <label>Enter Your</label>
+        <p class="label-name-bold" *ngIf='id==1'>Relative's Address</p>
+        <p class="label-name-bold" *ngIf='id==0'>Address</p>
+      </div>
+      <div class="col-md-10 col-lg-10 col-sm-12 col-xs-12">
+        <div class="row">
+          <div class="form-group col-md-1 col-lg-1 col-xs-12 col-sm-12">
+            <label></label>
+            <input type="text" class="form-control w-100 mt-1" id="co" placeholder="C/O" formControlName="careOfType" readonly>
+          </div>
+          <div class="form-group col-md-3 col-lg-3 col-xs-12 col-sm-12">
+            <label for="name">Name</label>
+            <input type="text" class="form-control w-100" id="careOfName" placeholder=""  (keypress)="keyPress1($event)" autocomplete="off" formControlName="careOfName"
+              [attr.maxlength]="250">
+          </div>
+          <div class="form-group col-md-8 col-lg-8 col-xs-12 col-sm-12">
+            <label for="houseNo">House No/ Bldg./Apt.</label>
+            <input type="text" formControlName="houseNo" class="form-control w-100" id="houseNo"  autocomplete="off"
+              [ngClass]="{ 'is-invalid': submitted && f.houseNo.errors }">
+            <div *ngIf="submitted && f.houseNo.errors" class="invalid-feedback">
+              <div *ngIf="f.houseNo.errors.required">{{validationMessages.MESSAGES.HOUSE_NO}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-3 col-lg-3 col-xs-12 col-sm-12">
+            <label for="pincode">Pincode <span class="required-star">*</span></label>
+            <input type="text" class="form-control w-100" id="pincode" placeholder="" [attr.maxlength]="6"  
+              autocomplete="off" formControlName="pincode" [ngClass]="{ 'is-invalid': submitted && f.pincode.errors }"
+              (keypress)="keyPress($event)">
+            <div *ngIf="submitted && f.pincode.errors" class="invalid-feedback">
+              <div *ngIf="f.pincode.errors.required">{{validationMessages.MESSAGES.ZIP_CODE}}</div>
+              <div *ngIf="f.pincode.errors.maxlength || f.pincode.errors.minlength ">Pincode must be 6 digits</div>
+            </div>
+          </div>
+          <div class="form-group col-md-9 col-lg-9 col-xs-12 col-sm-12">
+            <label for="addressLine1">Street/Road/Lane.</label>
+            <input type="text" formControlName="addressLine1" class="form-control w-100" id="addressLine1"  autocomplete="off"
+              placeholder="Address Line 1" [ngClass]="{ 'is-invalid': submitted && f.addressLine1.errors }">
+            <div *ngIf="submitted && f.addressLine1.errors" class="invalid-feedback">
+              <div *ngIf="f.addressLine1.errors.required">{{validationMessages.MESSAGES.ADDRESS_LINE1}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-9 col-lg-9 col-xs-12 col-sm-12">
+            <label for="addressLine2">Area/locality/sector</label>
+            <input type="text" formControlName="addressLine2" class="form-control w-100" id="addressLine2" autocomplete="off">
+          </div>
+          <div class="form-group col-md-3 col-lg-3 col-xs-12 col-sm-12">
+            <label for="landmark">Landmark</label>
+            <input type="text" formControlName="landmark" class="form-control w-100"  autocomplete="off" id="landmark">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-3 col-lg-3 col-xs-12 col-sm-12">
+            <label for="village">Village/Town/City <span class="required-star">*</span></label>
+            <select class="form-control cs-select" id="village" formControlName="village"
+              (change)="changeEventVillage($event.target.value)"
+              [ngClass]="{ 'is-invalid': submitted && f.village.errors }">
+              <option *ngFor="let v of villages" [value]="v.villageCode">{{v.villageName}}</option>
+            </select>
+            <div *ngIf="f.village.errors" class="invalid-feedback">
+              <div *ngIf="f.village.errors.required">{{validationMessages.MESSAGES.VILLAGE}}</div>
+            </div>
+          </div>
+          <div class="form-group col-md-3 col-lg-3 col-xs-12 col-sm-12">
+            <label for="postOffice">Sub District <span class="required-star">*</span></label>
+            <input type="text" class="form-control w-100" id="state" placeholder="" formControlName="postOffice"
+              [ngClass]="{ 'is-invalid': submitted && f.postOffice.errors }" readonly>
+            <!-- <select class="custom-select" id="village" formControlName="postOffice"
+              (change)="changeEventSubDistrict($event.target.value)"
+              [ngClass]="{ 'is-invalid': submitted && f.postOffice.errors }">
+              <option value="" selected>Select</option>
+              <option *ngFor="let v of subDistricts" [value]="v.districtCode">{{v.subdistrictName}}</option>
+            </select> -->
+            <div *ngIf="submitted && f.postOffice.errors" class="invalid-feedback">
+              <div *ngIf="f.postOffice.errors.required">{{validationMessages.MESSAGES.SUB_DISTRICT}}</div>
+            </div>
+          </div>
+          <div class="form-group col-md-3 col-lg-3 col-xs-12 col-sm-12">
+            <label for="district">District <span class="required-star">*</span></label>
+            <input type="text" class="form-control w-100" id="state" placeholder="" formControlName="district"
+              [ngClass]="{ 'is-invalid': submitted && f.district.errors }" readonly>
+            <div *ngIf="submitted && f.district.errors" class="invalid-feedback">
+              <div *ngIf="f.district.errors.required">{{validationMessages.MESSAGES.DISTRICT}}</div>
+            </div>
+            <!-- <select class="custom-select" id="village" formControlName="district"
+              (change)="changeEventDistrict($event.target.value)"
+              [ngClass]="{ 'is-invalid': submitted && f.district.errors }">
+              <option value="" disabled selected>Select</option>
+              <option *ngFor="let v of districts" [value]="v.stateCode">{{v.districtName}}</option>
+            </select>
+            <div *ngIf="submitted && f.district.errors" class="invalid-feedback">
+              <div *ngIf="f.district.errors.required">{{validationMessages.MESSAGES.DISTRICT}}</div>
+            </div> -->
+          </div>
+          <div class="form-group col-md-3 col-lg-3 col-xs-12 col-sm-12">
+            <label for="state">State <span class="required-star">*</span></label>
+            <input type="text" class="form-control w-100" id="state" placeholder="" formControlName="state"
+              [ngClass]="{ 'is-invalid': submitted && f.state.errors }" readonly>
+            <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+              <div *ngIf="f.state.errors.required">{{validationMessages.MESSAGES.STATE}}</div>
+            </div>
+            <!-- <select class="custom-select" id="village" formControlName="state"
+              [ngClass]="{ 'is-invalid': submitted && f.state.errors }">
+              <option *ngFor="let v of states" [value]="v.stateCode">{{v.stateName}}</option>
+            </select>
+            <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+              <div *ngIf="f.state.errors.required">{{validationMessages.MESSAGES.STATE}}</div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Divider -->
+    <div class="horizontal-divider"></div>
+    <!-- Contact Details Row -->
+    <div class="row mt-3">
+      <div class="form-group col-md-2 col-lg-2 pt-3 pt-xs-0">
+        <label>Enter Your</label>
+        <p class="label-name-bold">Contact Details</p>
+      </div>
+      <div class="col-md-3 col-lg-3 col-xs-12 col-sm-12">
+        <div class="form-group">
+          <label for="mobileNo">Mobile No.</label><br>
+          <label class="form-control w-100" *ngIf="!editPhoneNumber">{{f.mobileNo.value}}</label>
+          <input type="text" *ngIf="editPhoneNumber" formControlName="mobileNo" class="form-control w-100" id="mobileNo"
+            placeholder="9972222610" [ngClass]="{ 'is-invalid': submitted && f.mobileNo.errors }" maxlength="10"
+            (keypress)="keyPress($event)">
+          <div *ngIf="submitted && f.mobileNo.errors" class="invalid-feedback">
+            <div *ngIf="f.mobileNo.errors.required">{{validationMessages.MESSAGES.MOBILE_NO_REQUIRED}}</div>
+          </div>
+          <p class="small-text clr-4a4 border-0">Want to change the number? <span
+              class="resend-otp clr-darkish-blue p-0 ml-1 cursor" (click)="handleEditPhoneNumber(true)">CHANGE</span>
+            <!-- <div class="row mx-0 mt-2">
+              <label class="clr-4a4 col-md-3 col-lg-3 col-xs-6 col-sm-6 px-0 cursor"
+                (click)="handleEditPhoneNumber(false)">Cancel</label>
+              <p
+                class="btn text-white no-shadow no-outline btn-sm send-otp-btn col-md-9 col-lg-9 col-xs-6 col-sm-6 cursor">
+                Send OTP</p>
+            </div> -->
+        </div>
+        <!-- <div class="form-group">
+          <label for="enterOTP">Enter OTP <span class="required-star">*</span></label>
+          <input type="text" class="form-control w-100 input-disabled" id="enterOTP" placeholder="" required>
+        </div>
+        <div class="form-group">
+          <p class="btn text-white no-shadow no-outline btn-sm send-otp-btn w-100 cursor">Verify Mobile Number</p>
+        </div> -->
+      </div>
+      <div class="col-md-3 col-lg-3 col-xs-12 col-sm-12">
+        <div class="form-group">
+          <label for="mobileNo">Email</label>
+          <input type="email" formControlName="email" class="form-control w-100" id="email" placeholder="" (blur)="validateEmail($event)">
+          <!-- Email OTP service not availabe for now! will uncomment later -->
+          <!-- <input type="email" formControlName="email" class="form-control w-100" id="email" placeholder=""
+            [attr.maxlength]="254" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.email">{{validationMessages.MESSAGES.VALID_EMAIL}}</div>
+          </div>
+          <p class="small-text clr-4a4 border-0">Want to change the email? <span
+              class="resend-otp clr-darkish-blue p-0 ml-1 cursor">CHANGE</span></p>
+          <div class="row mx-0 mt-2">
+            <label class="clr-4a4 col-md-3 col-lg-3 col-xs-6 col-sm-6 px-0 cursor">Cancel</label>
+            <p class="btn text-white no-shadow no-outline btn-sm send-otp-btn col-md-9 col-lg-9 col-xs-6 col-sm-6 cursor">
+                Send OTP</p>
+          </div> -->
+        </div>
+        <!-- <div class="form-group">
+          <label for="enterOTP">Enter OTP <span class="required-star">*</span></label>
+          <input type="text" class="form-control w-100 input-disabled" id="enterOTP" placeholder="" required>
+        </div>
+        <div class="form-group">
+          <p class="btn text-white no-shadow no-outline btn-sm send-otp-btn w-100 cursor">Verify Email</p>
+        </div> -->
+      </div>
+    </div>
+
+    <div class="footer-back-proceed ">
+      <button class="back-step text-center text-white no-shadow border-0 no-outline"
+        (click)="handleBackNavigation()">Back</button>
+      <button class="next-step text-center text-white no-shadow float-right border-0 no-outline">Save & Proceed</button>
+    </div>
+  </form>
+</section>
+<app-footer-component [bodyHeight]='bodyHeight'></app-footer-component>

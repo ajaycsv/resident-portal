@@ -1,0 +1,63 @@
+<app-spinner [loader]='loader'></app-spinner>
+<app-top-navigation></app-top-navigation>
+<section class="back-header px-50 py-3 cursor mt-96" (click)="handleBack()">
+  <div class="d-flex">
+    <img src="assets/images/back-icon.png" alt="Back" class="mr-3">
+    <button class="clr-4a4 no-shadow bg-transparent border-0 no-outline">Back to your search results</button>
+  </div>
+</section>
+<section class="booking-slots-page container-fluid px-50 bg-ece py-3">
+  <p>Registrar: {{enrolmentCenter.registrarName}}</p>
+  <p class="slots-title text-black mt-3">{{enrolmentCenter.ecName}}</p>
+  <p class="ec-address">{{enrolmentCenter.fullAdrs}}
+    ,{{enrolmentCenter.subDistrict}},{{enrolmentCenter.state}},{{enrolmentCenter.pinCode}}</p>
+  <div class="row mt-3 pb-50">
+    <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+      <!-- Custom Calendar -->
+      <div class="form-group">
+        <label for="selectAddress">Select Address</label>
+        <select class="cs-select" id="selectAddress" (change)="changeEvent($event.target.value)">
+          <option *ngFor="let x of enrolmenCenters" [value]="x.id">{{x.fullAdrs}}
+            ,{{x.subDistrict}},{{x.state}},{{x.pinCode}}</option>
+        </select>
+      </div>
+      <div class="custom-calendar">
+        <!-- <p-calendar [(ngModel)]="value" [inline]="true" [minDate]="minDate" [maxDate]="maxDate" [defaultDate]="defaultDate"></p-calendar> -->
+        <p-calendar [inline]="true" (onSelect)="onSelect($event)" [minDate]="minDate" [maxDate]="maxDate" [(ngModel)]="defaultDate">
+          <ng-template pTemplate="date" let-date>
+            <span [ngClass]="(date.day === day1 || date.day === day2 || date.day === day3 || date.day === day4 || date.day === day5 || 
+              date.day === day6 || date.day === day7 || date.day === day8 || date.day === day9 || date.day === day10 || date.day === day11 || 
+              date.day === day12 || date.day === day13 || date.day === day14) ? 'available-date' : 'not-available-date'">{{date.day}}</span>
+          </ng-template>
+        </p-calendar>
+        <div class="row m-auto pl-4 py-4">
+          <div class="circle bg-verified mr-2"></div> Slots Available<div class="circle bg-failed ml-4 mr-2"></div> No
+          Slots Available
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12 search-placeholder" *ngIf="availableSlots.length == 0">
+      <div class="search-placeholder-inner">
+          <h5 class="text-center align-self-center">No Slots Available</h5>
+      </div>      
+    </div>
+    <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12" *ngIf="availableSlots.length != 0">
+      <p class="slots-title mb-4">{{selectedDate | date: 'mediumDate'}} | {{availableSlotCount}} Slots Available</p>
+      <div class="row">
+        <div class="col-md-2 col-lg-2 col-sm-6 col-xs-6 mb-3" *ngFor="let slot of availableSlots">
+          <div class="form-check slot-box ml-0"
+            [ngClass]="{ 'not-available-slot': slot.available_booths == 0,'available-slot': slot.available_booths != 0}">
+            <input class="form-check-input" type="radio" name="time" [(ngModel)]="radioSelected"
+              [disabled]="slot.available_booths == 0" (change)="onItemChange(slot)" value="{{slot.id}}">
+            <label class="form-check-label" for="time">{{slot.startTime}}</label>
+          </div>
+        </div>
+      </div>
+      <div class="mt-5 mt-xs-0">
+        <button class="btn btn-primary bg-btn no-shadow w-160 ml-3" (click)="(!radioSelected) ? '' : handleConfirmBooking(slot)"
+          [disabled]='!radioSelected'>Submit</button>
+      </div>
+    </div>
+  </div>
+</section>
+<app-footer-component [bodyHeight]='bodyHeight'></app-footer-component>

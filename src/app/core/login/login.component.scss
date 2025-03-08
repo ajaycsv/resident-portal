@@ -1,0 +1,159 @@
+button {
+    height: 30px;
+}
+.note-section {
+    background-color: #f1f3f4;
+    border-top: 2px solid #96a5c7;
+    font-size: 13px;
+    color: #666666;
+    line-height: 25px;
+}
+
+.send-otp-btn {
+    color: #fff;
+    opacity: 0.9;
+    border-radius: 6px;
+    border: solid 2px #2ea2cd;
+    background-color: #2ea2cd;
+    width: 250px;
+}
+
+.reg-form-wrap {
+    border-radius: 5px;
+    border: solid 1px #e8eaec;
+    background-color: #f9fafb;
+}
+
+.input-ex {
+    color: rgba(153, 153, 153, 0.9);
+    font-size: 14px;
+}
+
+.register-btn {
+    opacity: 0.9;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 6px;
+    background-image: linear-gradient(98deg, #092e6f, #1699c7);
+    width: 250px;
+}
+
+.login-title {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.required-star {
+    color: #ff0000;
+    font-size: 12px;
+}
+
+.captcha-img {
+    height: 40px;
+}
+
+.captcha-refresh {
+    color: #013299;
+    font-size: 12px;
+    opacity: 0.9;
+    height: auto;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+
+
+.send-otp-form,
+.otp-form {
+    width: 250px;
+}
+
+.form-disabled {
+    opacity: 0.4;
+}
+
+.form-divider {
+    border-right: solid 1px #e8eaec;
+}
+
+ul#registersTab {
+    background: transparent;
+}
+
+.navbar-light .navbar-toggler-icon {
+    background-image: url('../../../assets/images/ham.png');
+    width: 17px;
+    height: 14px;
+}
+
+.try-another-block {
+    padding: 10px 15px 0 0;
+}
+
+.register-link {
+    color: #2ea2cd;
+    border-color: #2ea2cd;
+ }
+ 
+ .register-link:hover,
+ .register-link:active,
+ .register-link:focus {
+    color: #2ea2cd !important;
+    background-color: transparent !important;
+ }
+
+ #registersTabContent {
+    margin-top: 96px;
+}
+
+#navbarTogglerLogin {
+    position: relative;
+ }
+ #registersTab {
+    background: transparent;
+    position: absolute;
+    right: 0;
+ }
+ 
+@media screen and (max-width: 768px) {
+    .form-control-file,
+    .form-group label,
+    .form-check label {
+        font-size: 11px;
+    }
+    .form-group .form-control,
+    .register-btn {
+        width: 100%;
+    }
+    .nav-tabs .nav-item {
+        width: 100%;
+    }
+    .nav-tabs .nav-link {
+        font-size: 12px;
+        padding: 13px 10px 5px 0px;
+    }
+    .send-otp-btn {
+        width: 100%;
+    }
+
+    .login-title {
+        font-size: 1rem;
+        text-align: center;
+    }
+    .captcha-inner {
+        // margin-top: 16px;
+    }  
+    .reg-form-wrap {
+        border-radius: 0;
+    }
+    #navbarTogglerLogin,
+    #registersTab {
+        position: static;
+    }
+    
+}
+
+@media screen and (max-width: 909px) { 
+    
+    
+}

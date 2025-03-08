@@ -1,0 +1,344 @@
+<app-top-navigation></app-top-navigation>
+<app-spinner [loader]='loader'></app-spinner>
+<section class="back-header mt-96">
+  <div class="d-flex" [routerLink]="['/' + validationMessages.ROUTERLINKS.DASHBOARD]">
+    <img src="../../../assets/images/back-icon.png" alt="Back" class="mr-3 cursor">
+    <button class="clr-4a4 no-shadow bg-transparent border-0 no-outline">Back to
+      Dashboard</button> / <button class="clr-4a4 no-shadow bg-transparent border-0 no-outline">Update
+      Enrolment</button>
+  </div>
+</section>
+<section class="container-fluid bg-ece px-50">
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit(f)" class="py-3">
+    <div class="row">
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <div class="row mx-0 horizontal-divider mb-3">
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 mb-3 bg-white pt-3">
+            <div class="form-group">
+              <label for="aadhaarName" class="mb-2">Enter name as per Aadhaar <span
+                  class="required-star">*</span></label>
+              <input type="text" formControlName="aadhaarName" class="form-control" id="aadhaarName"
+                (keypress)="keyPress1($event)" [ngClass]="{ 'is-invalid': submitted && f.aadhaarName.errors }" required readonly>
+              <div *ngIf="submitted && f.aadhaarName.errors" class="invalid-feedback">
+                <div *ngIf="f.aadhaarName.errors.required">{{validationMessages.MESSAGES.FULL_NAME}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 mb-3 bg-white pt-3">
+            <div class="form-group">
+              <label for="aadhaarNumber" class="mb-2">Enter your 12 digit Aadhaar number <span
+                  class="required-star">*</span></label>
+              <input type="text" formControlName="aadhaarNumber" class="form-control" id="aadhaarNumber"
+                (keypress)="keyPress($event)" [ngClass]="{ 'is-invalid': submitted && f.aadhaarNumber.errors }"
+                maxlength="12" required readonly>
+              <div *ngIf="submitted && f.aadhaarNumber.errors" class="invalid-feedback">
+                <div *ngIf="f.aadhaarNumber.errors.required">{{validationMessages.MESSAGES.AADHAR_NUMBER}}</div>
+                <div *ngIf="f.aadhaarNumber.errors.minlength || f.aadhaarNumber.errors.maxlength">Aadhaar number must be
+                  12 digits</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Update Name -->
+      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 mb-3" *ngIf="updatedFields.name">
+        <h5>Update Name</h5>
+        <div class="row bg-white mx-0 pt-3">
+          <!-- <div class="form-group col-md-6 col-lg-6 col-sm-12 col-xs-12">
+            <label for="oldName" class="mb-2">Enter the name on your Aadhaar Card</label>
+            <input type="text" formControlName="oldName" class="form-control" id="oldName"
+              (keypress)="keyPress1($event)" [ngClass]="{ 'is-invalid': submitted && f.oldName.errors }" required>
+            <div *ngIf="submitted && f.oldName.errors" class="invalid-feedback">
+              <div *ngIf="f.oldName.errors.required">{{validationMessages.MESSAGES.FULL_NAME}}</div>
+            </div>
+          </div> -->
+          <div class="form-group col-md-12 col-lg-12 col-sm-12 col-xs-12">
+            <label for="newName" class="mb-2">Enter the new name <span class="required-star">*</span></label>
+            <input type="text" formControlName="newName" class="form-control" id="aadhaarName" autocomplete="off"
+              (keypress)="keyPress1($event)" [ngClass]="{ 'is-invalid': submitted && f.newName.errors }" required>
+            <div *ngIf="submitted && f.newName.errors" class="invalid-feedback">
+              <div *ngIf="f.newName.errors.required">{{validationMessages.MESSAGES.FULL_NAME}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Update Gender -->
+      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 mb-3" *ngIf="updatedFields.gender">
+        <h5>Update Gender</h5>
+        <div class="row bg-white mx-0">
+          <div class="form-group col-md-12 col-lg-12 pt-3 pt-xs-0">
+            <label>Select Your Gender <span class="required-star">*</span></label>
+          </div>
+          <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12 pt-xs-0">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="newGender" id="inlineRadio1"
+                formControlName="newGender" value="MALE" [ngClass]="{ 'is-invalid': submitted && f.newGender.errors }">
+              <label class="form-check-label" for="inlineRadio1">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="newGender" id="inlineRadio2"
+                formControlName="newGender" value="FEMALE"
+                [ngClass]="{ 'is-invalid': submitted && f.newGender.errors }">
+              <label class="form-check-label" for="inlineRadio2">Female</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="newGender" id="inlineRadio3"
+                formControlName="newGender" value="TRANSGENDER"
+                [ngClass]="{ 'is-invalid': submitted && f.newGender.errors }">
+              <label class="form-check-label" for="inlineRadio3">Transgender</label>
+            </div>
+            <div *ngIf="submitted && f.newGender.errors" class="invalid-feedback">
+              <div *ngIf="f.newGender.errors.required">{{validationMessages.MESSAGES.GENDER_REQUIRED}}</div>
+            </div>
+          </div>
+          <!-- <div class="form-group col-md-6 col-lg-6 col-sm-12 col-xs-12">
+            <label for="newGender" class="mb-2">Enter the new Gender</label>
+            <input type="text" formControlName="newGender" class="form-control" id="newGender"
+              [ngClass]="{ 'is-invalid': submitted && f.newGender.errors }" required>
+            <div *ngIf="submitted && f.newGender.errors" class="invalid-feedback">
+              <div *ngIf="f.newGender.errors.required">{{validationMessages.MESSAGES.GENDER_REQUIRED}}</div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+      <!-- Update Date of Birth -->
+      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 mb-3" *ngIf="updatedFields.dob">
+        <h5>Update Date of Birth</h5>
+        <div class="row bg-white mx-0 pt-3">
+          <!-- <div class="form-group col-md-6 col-lg-6 col-sm-12 col-xs-12">
+            <div class="row mx-0">
+              <div class="form-check-inline">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input align-middle" name="typeOfId" value="dob"
+                    formControlName="typeOfId">Select From Calendar
+                </label>
+              </div>
+              <div class="form-check-inline">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input align-middle" name="typeOfId" value="age"
+                    formControlName="typeOfId">Age
+                </label>
+              </div>
+            </div>
+          </div> -->
+          <!-- <div class="row"> -->
+          <!-- <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12" *ngIf='f.typeOfId.value == "dob"'>
+              <label for="newDob" class="mb-2">Enter the new Date of Birth <span class="required-star">*</span></label>
+              <input type="date" formControlName="oldDob" class="form-control" id="dob" placeholder=""
+                value="2017-06-01" [ngClass]="{ 'is-invalid': submitted && f.oldDob.errors }" required>
+              <div *ngIf="submitted && f.oldDob.errors" class="invalid-feedback">
+                <div *ngIf="f.oldDob.errors.required">{{validationMessages.MESSAGES.DOB_REQUIRED}}</div>
+              </div>
+            </div> -->
+          <div class="form-group col-md-12 col-lg-12 col-sm-12 col-xs-12">
+            <label for="newDob" class="mb-2">Enter the new Date of Birth <span class="required-star">*</span></label>
+            <input type="date" formControlName="newDob" class="form-control" id="newDob" onkeydown="return false"
+              max="{{maxDate | date:'yyyy-MM-dd'}}" [ngClass]="{ 'is-invalid': submitted && f.newDob.errors }" min="{{minDate | date:'yyyy-MM-dd'}}" required>
+            <div *ngIf="submitted && f.newDob.errors" class="invalid-feedback">
+              <div *ngIf="f.newDob.errors.required">{{validationMessages.MESSAGES.DOB_REQUIRED}}</div>
+            </div>
+          </div>
+          <!-- </div> -->
+          <!-- <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12" *ngIf='f.typeOfId.value == "dob"'>
+              <input type="text" formControlName="newDob" class="form-control" id="age" placeholder=""
+                (keypress)="keyPress($event)" [ngClass]="{ 'is-invalid': submitted && f.newDob.errors }">
+              <div *ngIf="submitted && f.newDob.errors" class="invalid-feedback">
+                <div *ngIf="f.newDob.errors.required">{{validationMessages.MESSAGES.AGE_REQUIRED}}</div>
+              </div>
+            </div> -->
+        </div>
+      </div>
+      <!-- Update Mobile Number -->
+      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 mb-3" *ngIf="updatedFields.mobile">
+        <h5>Update Mobile Number</h5>
+        <div class="row mx-0 pt-3 common-shadow">
+          <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+            <div class="form-group">
+              <label for="mobileNo">Mobile No. <span class="required-star">*</span></label><br>
+              <input type="text" formControlName="newNumber" class="form-control w-100" id="mobileNo"
+                (keypress)="keyPress($event)" [attr.maxLength]="10" placeholder=""
+                [ngClass]="{ 'is-invalid': submitted && f.newNumber.errors }">
+              <div *ngIf="submitted && f.newNumber.errors" class="invalid-feedback">
+                <div *ngIf="f.newNumber.errors.required">{{validationMessages.MESSAGES.MOBILE_NO_REQUIRED}}</div>
+                <div *ngIf="f.newNumber.errors.minlength || f.newNumber.errors.maxlength">Mobile number is not valid
+                </div>
+              </div>
+              <!-- <div class="row mx-0 mt-3 pt-1">
+                <label class="clr-4a4 col-md-6 col-lg-6 col-xs-6 col-sm-6 px-0">Cancel</label>
+                <p class="btn text-white no-shadow no-outline btn-sm send-otp-btn col-md-6 col-lg-6 col-xs-6 col-sm-6">
+                  Send
+                  OTP</p>
+              </div> -->
+            </div>
+          </div>
+          <!-- Enter Mobile OTP -->
+          <!-- <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+            <div class="form-group">
+              <label for="enterOTP">Enter OTP <span class="required-star">*</span></label>
+              <input type="text" class="form-control w-100 input-disabled" id="enterOTP" placeholder="" required>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn text-white no-shadow no-outline btn-sm send-otp-btn w-100"
+                disabled>Verify Mobile Number</button>
+            </div>
+          </div> -->
+        </div>
+      </div>
+      <!-- Update E-Mail Id -->
+      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 mb-3" *ngIf="updatedFields.email">
+        <h5>Update Email Id</h5>
+        <div class="row common-shadow pt-3 mx-0">
+          <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+            <div class="form-group">
+              <label for="mobileNo">Email <span class="required-star">*</span></label>
+              <input type="text" formControlName="newEmail" class="form-control w-100" id="newEmail" placeholder=""
+                [ngClass]="{ 'is-invalid': submitted && f.newEmail.errors }" required (blur)="validateEmail($event)">
+              <div *ngIf="submitted && f.newEmail.errors" class="invalid-feedback">
+                <div *ngIf="f.newEmail.errors.required">{{validationMessages.MESSAGES.EMAIL_REQUIRED}}</div>
+                <div *ngIf="f.newEmail.errors.email">{{validationMessages.MESSAGES.VALID_EMAIL}}</div>
+              </div>
+              <!-- <div class="row mx-0 mt-3 pt-1">
+                <label class="clr-4a4 col-md-6 col-lg-6 col-xs-6 col-sm-6 px-0">Cancel</label>
+                <p class="btn text-white no-shadow no-outline btn-sm send-otp-btn col-md-6 col-lg-6 col-xs-6 col-sm-6">
+                  Send
+                  OTP</p>
+              </div> -->
+            </div>
+          </div>
+          <!-- Enter Email OTP -->
+          <!-- <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+            <div class="form-group">
+              <label for="enterOTP">Enter OTP <span class="required-star">*</span></label>
+              <input type="text" class="form-control w-100 input-disabled" id="enterOTP" placeholder="" required>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn text-white no-shadow no-outline btn-sm send-otp-btn w-100"
+                disabled>Verify Email</button>
+            </div>
+          </div> -->
+        </div>
+      </div>
+      <!-- <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 mb-3">
+        <h5>Update Email Id</h5>
+        <div class="row bg-white mx-0 pt-3">
+          <div class="form-group col-md-6 col-lg-6 col-sm-12 col-xs-12">
+            <label for="oldEmail" class="mb-2">Enter the Email Id on your Aadhaar Card</label>
+            <input type="text" formControlName="oldEmail" class="form-control" id="oldEmail"
+              [ngClass]="{ 'is-invalid': submitted && f.oldEmail.errors }" required>
+            <div *ngIf="submitted && f.oldEmail.errors" class="invalid-feedback">
+              <div *ngIf="f.oldEmail.errors.required">{{validationMessages.MESSAGES.EMAIL_REQUIRED}}</div>
+            </div>
+          </div>
+          <div class="form-group col-md-6 col-lg-6 col-sm-12 col-xs-12">
+            <label for="newEmail" class="mb-2">Enter the new Email Id <span class="required-star">*</span></label>
+            <input type="text" formControlName="newEmail" class="form-control" id="newEmail"
+              [ngClass]="{ 'is-invalid': submitted && f.newEmail.errors }" required>
+            <div *ngIf="submitted && f.newEmail.errors" class="invalid-feedback">
+              <div *ngIf="f.newEmail.errors.required">{{validationMessages.MESSAGES.EMAIL_REQUIRED}}</div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- Update Address -->
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 mb-3" *ngIf="updatedFields.address">
+        <h5>Update Address</h5>
+        <div class="row bg-white mx-0 pt-3 common-shadow">
+          <div class="form-group col-md-3 col-lg-3 col-sm-12 col-xs-12">
+            <label for="co">C/O</label>
+            <input type="text" formControlName="careOf" class="form-control" id="co" readonly>
+          </div>
+          <div class="form-group col-md-3 col-lg-3 col-sm-12 col-xs-12">
+            <label for="co">Name</label>
+            <input type="text" formControlName="careOfName" class="form-control" id="co">
+          </div>
+          <div class="form-group col-md-3 col-lg-3 col-sm-12 col-xs-12">
+            <label for="houseNo">House/Bldg/Apt No <span class="required-star">*</span></label>
+            <input type="text" formControlName="houseNo" class="form-control" id="houseNo"
+              [ngClass]="{ 'is-invalid': submitted && f.houseNo.errors }" required>
+            <div *ngIf="submitted && f.houseNo.errors" class="invalid-feedback">
+              <div *ngIf="f.houseNo.errors.required">House/Bldg/Apt No is required</div>
+            </div>
+          </div>
+          <div class="form-group col-md-3 col-lg-3 col-sm-12 col-xs-12">
+            <label for="streetNo">Street/Road/Lane <span class="required-star">*</span></label>
+            <input type="text" formControlName="streetNo" class="form-control" id="streetNo"   [ngClass]="{ 'is-invalid': submitted && f.streetNo.errors }" required>
+            <div *ngIf="submitted && f.streetNo.errors" class="invalid-feedback">
+              <div *ngIf="f.streetNo.errors.required">Street/Road/Lane is required</div>
+            </div>
+          </div>
+          <div class="form-group col-md-3 col-lg-3 col-sm-12 col-xs-12">
+            <label for="landmark">Landmark</label>
+            <input type="text" formControlName="landmark" class="form-control" id="landmark">
+          </div>
+          <div class="form-group col-md-3 col-lg-3 col-sm-12 col-xs-12">
+            <label for="area">Area/Locator/Sector</label>
+            <input type="text" formControlName="area" class="form-control" id="area"
+              [ngClass]="{ 'is-invalid': submitted && f.area.errors }">
+            <div *ngIf="submitted && f.area.errors" class="invalid-feedback">
+              <div *ngIf="f.area.errors.required">Area is required</div>
+            </div>
+          </div>
+          <div class="form-group col-md-3 col-lg-3 col-sm-12 col-xs-12">
+            <label for="pinCode">Pincode <span class="required-star">*</span></label>
+            <input type="text" formControlName="pinCode" class="form-control" id="pinCode" maxlength="6"
+              [ngClass]="{ 'is-invalid': submitted && f.pinCode.errors }" (keypress)="keyPress($event)" required>
+            <div *ngIf="submitted && f.pinCode.errors" class="invalid-feedback">
+              <div *ngIf="f.pinCode.errors.required">{{validationMessages.MESSAGES.ZIP_CODE}}</div>
+            </div>
+          </div>
+          <div class="form-group col-md-3 col-lg-3 col-sm-12 col-xs-12">
+            <label for="vtc">Village/Town/City <span class="required-star">*</span></label>
+            <select class="cs-select" id="village" formControlName="village"
+              (change)="changeEventVillage($event.target.value)"
+              [ngClass]="{ 'is-invalid': submitted && f.village.errors }">
+              <option value="" selected>Select</option>
+              <option *ngFor="let v of villages" [value]="v.villageCode">{{v.villageName}}</option>
+            </select>
+            <div *ngIf="submitted && f.village.errors" class="invalid-feedback">
+              <div *ngIf="f.village.errors.required">{{validationMessages.MESSAGES.VILLAGE}}</div>
+            </div>
+          </div>
+          <div class="form-group col-md-3 col-lg-3 col-sm-12 col-xs-12">
+            <label for="postOffice">Post Office <span class="required-star">*</span></label>
+            <input type="text" class="form-control w-100" id="village" placeholder="" formControlName="postOffice"
+              [ngClass]="{ 'is-invalid': submitted && f.postOffice.errors }" readonly>
+            <!-- <select class="cs-select" id="village" formControlName="postOffice"
+              (change)="changeEventSubDistrict($event.target.value)"
+              [ngClass]="{ 'is-invalid': submitted && f.postOffice.errors }">
+              <option value="" selected>Select</option>
+              <option *ngFor="let v of subDistricts" [value]="v.districtCode">{{v.subdistrictName}}</option>
+            </select> -->
+            <div *ngIf="submitted && f.postOffice.errors" class="invalid-feedback">
+              <div *ngIf="f.postOffice.errors.required">{{validationMessages.MESSAGES.SUB_DISTRICT}}</div>
+            </div>
+          </div>
+          <div class="form-group col-md-3 col-lg-3 col-sm-12 col-xs-12">
+            <label for="district">District <span class="required-star">*</span></label>
+            <input type="text" class="form-control w-100" id="state" placeholder="" formControlName="district"
+              [ngClass]="{ 'is-invalid': submitted && f.district.errors }" readonly>
+            <div *ngIf="submitted && f.district.errors" class="invalid-feedback">
+              <div *ngIf="f.district.errors.required">{{validationMessages.MESSAGES.DISTRICT}}</div>
+            </div>
+          </div>
+          <div class="form-group col-md-3 col-lg-3 col-sm-12 col-xs-12">
+            <label for="state">State <span class="required-star">*</span></label>
+            <input type="text" class="form-control w-100" id="state" placeholder="" formControlName="state"
+              [ngClass]="{ 'is-invalid': submitted && f.state.errors }" readonly>
+            <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+              <div *ngIf="f.state.errors.required">{{validationMessages.MESSAGES.STATE}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-back-proceed ">
+      <button class="back-step text-center text-white no-shadow border-0 no-outline"
+        (click)="handleBackNavigation()">Back</button>
+      <button class="next-step text-center text-white no-shadow float-right border-0 no-outline">Save & Proceed</button>
+    </div>
+  </form>
+</section>
+<footer class="bg-footer" id="footerHeight">
+  <p class="text-center text-white copy-right py-3 m-auto">Copyright © 2019 Unique Identification Authority of India All
+    Rights Reserved.</p>
+</footer>
